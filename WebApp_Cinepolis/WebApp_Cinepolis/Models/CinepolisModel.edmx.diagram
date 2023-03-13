@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e41edfb1fdb14329be1503dea530f3fe" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="Database_CinepolisModel.C__RefactorLog" Width="1.5" PointX="0.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.Accion" Width="1.5" PointX="15.75" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.Actor" Width="1.5" PointX="15.375" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.Cine" Width="1.5" PointX="2.375" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.Combo" Width="1.5" PointX="7" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.ComboAdulto" Width="1.5" PointX="10.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.ComboNino" Width="1.5" PointX="10.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.Juguete" Width="1.5" PointX="11" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.Pelicula" Width="1.5" PointX="10" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.PeliculaAdultos" Width="1.5" PointX="12" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.PeliculaNinos" Width="1.5" PointX="4.75" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.Producto" Width="1.5" PointX="5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.Relacion_Pelicula_Actor" Width="1.5" PointX="12.25" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.Relation_Producto_Combo" Width="1.5" PointX="5.125" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.Sala" Width="1.5" PointX="6.125" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.Tiquete" Width="1.5" PointX="13" PointY="10.375" IsExpanded="true" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_Accion_To_Pelicula" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_Relacion_To_Actor" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_Combo_To_Cine" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_Sala_To_Cine" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_ComboAdulto_To_Combo" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_ComboNino_To_Combo" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_Relation_Producto_To_Combo" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_ComboAdulto_To_Tiquete" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_ComboNino_To_JugueteId" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_PeliculaAdultos_To_Pelicula" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_PeliculaNinos_To_Pelicula" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_Relacion_To_Pelicula" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_Relation_Combo_To_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_Accion_To_Pelicula1" />
+        <EntityTypeShape EntityType="Database_CinepolisModel.Horario" Width="1.5" PointX="9.75" PointY="14.375" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_Horario_To_Pelicula" />
+        <AssociationConnector Association="Database_CinepolisModel.FK_Horario_To_Sala" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

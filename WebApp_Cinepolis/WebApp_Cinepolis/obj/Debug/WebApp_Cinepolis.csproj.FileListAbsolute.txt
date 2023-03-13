@@ -77,3 +77,7 @@ C:\Users\XPC\source\repos\MVC_Cinepolis\WebApp_Cinepolis\WebApp_Cinepolis\obj\De
 C:\Users\XPC\source\repos\MVC_Cinepolis\WebApp_Cinepolis\WebApp_Cinepolis\obj\Debug\WebApp_Cinepolis.csproj.CopyComplete
 C:\Users\XPC\source\repos\MVC_Cinepolis\WebApp_Cinepolis\WebApp_Cinepolis\obj\Debug\WebApp_Cinepolis.dll
 C:\Users\XPC\source\repos\MVC_Cinepolis\WebApp_Cinepolis\WebApp_Cinepolis\obj\Debug\WebApp_Cinepolis.pdb
+C:\Users\XPC\source\repos\MVC_Cinepolis\WebApp_Cinepolis\WebApp_Cinepolis\bin\EntityFramework.dll
+C:\Users\XPC\source\repos\MVC_Cinepolis\WebApp_Cinepolis\WebApp_Cinepolis\bin\EntityFramework.SqlServer.dll
+C:\Users\XPC\source\repos\MVC_Cinepolis\WebApp_Cinepolis\WebApp_Cinepolis\bin\EntityFramework.xml
+C:\Users\XPC\source\repos\MVC_Cinepolis\WebApp_Cinepolis\WebApp_Cinepolis\bin\EntityFramework.SqlServer.xml
