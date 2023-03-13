@@ -170,3 +170,4 @@ ON Target.Id = Source.Id
 WHEN NOT MATCHED BY TARGET THEN
 INSERT (Id, CineId, EsAdulto, JugueteId, TiqueteId)
 VALUES (Id, CineId, EsAdulto, JugueteId, TiqueteId);
+GO

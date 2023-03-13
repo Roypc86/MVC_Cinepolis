@@ -40,57 +40,179 @@ USE [$(DatabaseName)];
 
 
 GO
-PRINT N'Dropping Foreign Key [dbo].[FK_Combo_To_Juguete]...';
+PRINT N'Creating Table [dbo].[Accion]...';
 
 
 GO
-ALTER TABLE [dbo].[Combo] DROP CONSTRAINT [FK_Combo_To_Juguete];
+CREATE TABLE [dbo].[Accion] (
+    [Id]         INT           IDENTITY (1, 1) NOT NULL,
+    [Nombre]     NVARCHAR (50) NULL,
+    [PeliculaId] INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
 
 
 GO
-PRINT N'Dropping Foreign Key [dbo].[FK_ComboNino_To_JugueteId]...';
+PRINT N'Creating Table [dbo].[Actor]...';
 
 
 GO
-ALTER TABLE [dbo].[ComboNino] DROP CONSTRAINT [FK_ComboNino_To_JugueteId];
+CREATE TABLE [dbo].[Actor] (
+    [Id]               INT           NOT NULL,
+    [Nombre_Apellidos] NVARCHAR (50) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
 
 
 GO
-PRINT N'Starting rebuilding table [dbo].[Juguete]...';
+PRINT N'Creating Table [dbo].[Cine]...';
 
 
 GO
-BEGIN TRANSACTION;
+CREATE TABLE [dbo].[Cine] (
+    [Id]        INT           IDENTITY (1, 1) NOT NULL,
+    [Nombre]    NVARCHAR (60) NULL,
+    [Ubicacion] NVARCHAR (60) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
 
-SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 
-SET XACT_ABORT ON;
+GO
+PRINT N'Creating Table [dbo].[Combo]...';
 
-CREATE TABLE [dbo].[tmp_ms_xx_Juguete] (
+
+GO
+CREATE TABLE [dbo].[Combo] (
+    [Id]        INT NOT NULL,
+    [CineId]    INT NULL,
+    [EsAdulto]  BIT NULL,
+    [JugueteId] INT NULL,
+    [TiqueteId] INT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+PRINT N'Creating Table [dbo].[Horario]...';
+
+
+GO
+CREATE TABLE [dbo].[Horario] (
+    [Id]           INT      IDENTITY (1, 1) NOT NULL,
+    [Fecha]        DATE     NULL,
+    [Hora_inicial] TIME (7) NULL,
+    [Hora_final]   TIME (7) NULL,
+    [SalaId]       INT      NULL,
+    [PeliculaId]   INT      NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+PRINT N'Creating Table [dbo].[Juguete]...';
+
+
+GO
+CREATE TABLE [dbo].[Juguete] (
     [Id]     INT        IDENTITY (1, 1) NOT NULL,
     [Nombre] NCHAR (30) NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
-IF EXISTS (SELECT TOP 1 1 
-           FROM   [dbo].[Juguete])
-    BEGIN
-        SET IDENTITY_INSERT [dbo].[tmp_ms_xx_Juguete] ON;
-        INSERT INTO [dbo].[tmp_ms_xx_Juguete] ([Id], [Nombre])
-        SELECT   [Id],
-                 [Nombre]
-        FROM     [dbo].[Juguete]
-        ORDER BY [Id] ASC;
-        SET IDENTITY_INSERT [dbo].[tmp_ms_xx_Juguete] OFF;
-    END
 
-DROP TABLE [dbo].[Juguete];
+GO
+PRINT N'Creating Table [dbo].[Pelicula]...';
 
-EXECUTE sp_rename N'[dbo].[tmp_ms_xx_Juguete]', N'Juguete';
 
-COMMIT TRANSACTION;
+GO
+CREATE TABLE [dbo].[Pelicula] (
+    [Id]        INT             NOT NULL,
+    [Nombre]    NVARCHAR (30)   NULL,
+    [Genero]    NVARCHAR (30)   NULL,
+    [Director]  NVARCHAR (30)   NULL,
+    [EsAdultos] BIT             NULL,
+    [Resumen]   NVARCHAR (3000) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
 
-SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+GO
+PRINT N'Creating Table [dbo].[Producto]...';
+
+
+GO
+CREATE TABLE [dbo].[Producto] (
+    [Id]     INT        IDENTITY (1, 1) NOT NULL,
+    [Nombre] NCHAR (30) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+PRINT N'Creating Table [dbo].[Relacion_Pelicula_Actor]...';
+
+
+GO
+CREATE TABLE [dbo].[Relacion_Pelicula_Actor] (
+    [PeliculaId] INT NOT NULL,
+    [ActorId]    INT NOT NULL,
+    CONSTRAINT [relacion_pelicula_actor_pk] PRIMARY KEY CLUSTERED ([PeliculaId] ASC, [ActorId] ASC)
+);
+
+
+GO
+PRINT N'Creating Table [dbo].[Relation_Producto_Combo]...';
+
+
+GO
+CREATE TABLE [dbo].[Relation_Producto_Combo] (
+    [ComboId]    INT NOT NULL,
+    [ProductoId] INT NOT NULL,
+    CONSTRAINT [relacion_combo_producto_pk] PRIMARY KEY CLUSTERED ([ComboId] ASC, [ProductoId] ASC)
+);
+
+
+GO
+PRINT N'Creating Table [dbo].[Sala]...';
+
+
+GO
+CREATE TABLE [dbo].[Sala] (
+    [Id]        INT NOT NULL,
+    [Capacidad] INT NULL,
+    [CineId]    INT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+PRINT N'Creating Table [dbo].[Tiquete]...';
+
+
+GO
+CREATE TABLE [dbo].[Tiquete] (
+    [Id]     INT           IDENTITY (1, 1) NOT NULL,
+    [Nombre] NVARCHAR (30) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Accion_To_Pelicula]...';
+
+
+GO
+ALTER TABLE [dbo].[Accion] WITH NOCHECK
+    ADD CONSTRAINT [FK_Accion_To_Pelicula] FOREIGN KEY ([PeliculaId]) REFERENCES [dbo].[Pelicula] ([Id]) ON DELETE CASCADE;
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Combo_To_Cine]...';
+
+
+GO
+ALTER TABLE [dbo].[Combo] WITH NOCHECK
+    ADD CONSTRAINT [FK_Combo_To_Cine] FOREIGN KEY ([CineId]) REFERENCES [dbo].[Cine] ([Id]);
 
 
 GO
@@ -100,6 +222,69 @@ PRINT N'Creating Foreign Key [dbo].[FK_Combo_To_Juguete]...';
 GO
 ALTER TABLE [dbo].[Combo] WITH NOCHECK
     ADD CONSTRAINT [FK_Combo_To_Juguete] FOREIGN KEY ([JugueteId]) REFERENCES [dbo].[Juguete] ([Id]);
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Combo_To_Tiquete]...';
+
+
+GO
+ALTER TABLE [dbo].[Combo] WITH NOCHECK
+    ADD CONSTRAINT [FK_Combo_To_Tiquete] FOREIGN KEY ([TiqueteId]) REFERENCES [dbo].[Tiquete] ([Id]);
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Horario_To_Sala]...';
+
+
+GO
+ALTER TABLE [dbo].[Horario] WITH NOCHECK
+    ADD CONSTRAINT [FK_Horario_To_Sala] FOREIGN KEY ([SalaId]) REFERENCES [dbo].[Sala] ([Id]) ON DELETE CASCADE;
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Horario_To_Pelicula]...';
+
+
+GO
+ALTER TABLE [dbo].[Horario] WITH NOCHECK
+    ADD CONSTRAINT [FK_Horario_To_Pelicula] FOREIGN KEY ([PeliculaId]) REFERENCES [dbo].[Pelicula] ([Id]) ON DELETE SET NULL;
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Relacion_To_Pelicula]...';
+
+
+GO
+ALTER TABLE [dbo].[Relacion_Pelicula_Actor] WITH NOCHECK
+    ADD CONSTRAINT [FK_Relacion_To_Pelicula] FOREIGN KEY ([PeliculaId]) REFERENCES [dbo].[Pelicula] ([Id]) ON DELETE CASCADE;
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Relacion_To_Actor]...';
+
+
+GO
+ALTER TABLE [dbo].[Relacion_Pelicula_Actor] WITH NOCHECK
+    ADD CONSTRAINT [FK_Relacion_To_Actor] FOREIGN KEY ([ActorId]) REFERENCES [dbo].[Actor] ([Id]) ON DELETE CASCADE;
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Relation_Combo_To_Producto]...';
+
+
+GO
+ALTER TABLE [dbo].[Relation_Producto_Combo] WITH NOCHECK
+    ADD CONSTRAINT [FK_Relation_Combo_To_Producto] FOREIGN KEY ([ProductoId]) REFERENCES [dbo].[Producto] ([Id]);
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Sala_To_Cine]...';
+
+
+GO
+ALTER TABLE [dbo].[Sala] WITH NOCHECK
+    ADD CONSTRAINT [FK_Sala_To_Cine] FOREIGN KEY ([CineId]) REFERENCES [dbo].[Cine] ([Id]);
 
 
 GO
@@ -148,8 +333,8 @@ USING (VALUES
 AS Source ([Id], Nombre, Genero, Director, EsAdultos, Resumen)
 ON Target.Id = Source.Id
 WHEN NOT MATCHED BY TARGET THEN
-INSERT (Nombre, Genero, Director, EsAdultos, Resumen)
-VALUES (Nombre, Genero, Director, EsAdultos, Resumen);
+INSERT (Id, Nombre, Genero, Director, EsAdultos, Resumen)
+VALUES (Id, Nombre, Genero, Director, EsAdultos, Resumen);
 
 --Datos Accion
 MERGE INTO Accion AS Target
@@ -268,7 +453,7 @@ USING (VALUES
  (3, 1, 1, NULL, 1),
  (4, 1, 1, NULL, 2),
  (5, 2, 0, 3, NULL),
- (6, 2, 1, NULL, 4)
+ (6, 2, 1, NULL, 3)
 )
 AS Source ([Id], CineId, EsAdulto, JugueteId, TiqueteId)
 ON Target.Id = Source.Id
@@ -286,7 +471,25 @@ USE [$(DatabaseName)];
 
 
 GO
+ALTER TABLE [dbo].[Accion] WITH CHECK CHECK CONSTRAINT [FK_Accion_To_Pelicula];
+
+ALTER TABLE [dbo].[Combo] WITH CHECK CHECK CONSTRAINT [FK_Combo_To_Cine];
+
 ALTER TABLE [dbo].[Combo] WITH CHECK CHECK CONSTRAINT [FK_Combo_To_Juguete];
+
+ALTER TABLE [dbo].[Combo] WITH CHECK CHECK CONSTRAINT [FK_Combo_To_Tiquete];
+
+ALTER TABLE [dbo].[Horario] WITH CHECK CHECK CONSTRAINT [FK_Horario_To_Sala];
+
+ALTER TABLE [dbo].[Horario] WITH CHECK CHECK CONSTRAINT [FK_Horario_To_Pelicula];
+
+ALTER TABLE [dbo].[Relacion_Pelicula_Actor] WITH CHECK CHECK CONSTRAINT [FK_Relacion_To_Pelicula];
+
+ALTER TABLE [dbo].[Relacion_Pelicula_Actor] WITH CHECK CHECK CONSTRAINT [FK_Relacion_To_Actor];
+
+ALTER TABLE [dbo].[Relation_Producto_Combo] WITH CHECK CHECK CONSTRAINT [FK_Relation_Combo_To_Producto];
+
+ALTER TABLE [dbo].[Sala] WITH CHECK CHECK CONSTRAINT [FK_Sala_To_Cine];
 
 
 GO
