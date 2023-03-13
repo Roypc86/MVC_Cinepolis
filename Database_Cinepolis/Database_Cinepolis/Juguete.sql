@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Juguete]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
-    [Nombre] NCHAR(10) NULL
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+    [Nombre] NCHAR(30) NULL
 )

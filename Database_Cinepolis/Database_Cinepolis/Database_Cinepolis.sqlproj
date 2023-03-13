@@ -62,15 +62,11 @@
     <Build Include="Pelicula.sql" />
     <Build Include="Actor.sql" />
     <Build Include="Relacion_Pelicula_Actor.sql" />
-    <Build Include="PeliculaNinos.sql" />
-    <Build Include="PeliculaAdultos.sql" />
     <Build Include="Accion.sql" />
     <Build Include="Combo.sql" />
     <Build Include="Relation_Producto_Combo.sql" />
     <Build Include="Producto.sql" />
-    <Build Include="ComboNino.sql" />
     <Build Include="Juguete.sql" />
-    <Build Include="ComboAdulto.sql" />
     <Build Include="Tiquete.sql" />
   </ItemGroup>
   <ItemGroup>

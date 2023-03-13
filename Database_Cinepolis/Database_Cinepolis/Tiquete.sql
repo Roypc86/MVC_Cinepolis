@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Tiquete]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
-    [Nombre] NVARCHAR(10) NULL
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+    [Nombre] NVARCHAR(30) NULL
 )
