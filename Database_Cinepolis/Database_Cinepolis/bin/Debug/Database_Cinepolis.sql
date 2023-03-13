@@ -40,45 +40,146 @@ USE [$(DatabaseName)];
 
 
 GO
-IF EXISTS (SELECT 1
-           FROM   [master].[dbo].[sysdatabases]
-           WHERE  [name] = N'$(DatabaseName)')
-    BEGIN
-        ALTER DATABASE [$(DatabaseName)]
-            SET ARITHABORT ON,
-                CONCAT_NULL_YIELDS_NULL ON,
-                CURSOR_DEFAULT LOCAL 
-            WITH ROLLBACK IMMEDIATE;
-    END
+PRINT N'Creating Table [dbo].[Pelicula]...';
 
 
 GO
-IF EXISTS (SELECT 1
-           FROM   [master].[dbo].[sysdatabases]
-           WHERE  [name] = N'$(DatabaseName)')
-    BEGIN
-        ALTER DATABASE [$(DatabaseName)]
-            SET PAGE_VERIFY NONE,
-                DISABLE_BROKER 
-            WITH ROLLBACK IMMEDIATE;
-    END
+CREATE TABLE [dbo].[Pelicula] (
+    [Id]       INT           IDENTITY (1, 1) NOT NULL,
+    [Nombre]   NVARCHAR (30) NULL,
+    [Genero]   NVARCHAR (30) NULL,
+    [Director] NVARCHAR (30) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
 
 
 GO
-ALTER DATABASE [$(DatabaseName)]
-    SET TARGET_RECOVERY_TIME = 0 SECONDS 
-    WITH ROLLBACK IMMEDIATE;
+PRINT N'Creating Table [dbo].[PeliculaAdultos]...';
 
 
 GO
-IF EXISTS (SELECT 1
-           FROM   [master].[dbo].[sysdatabases]
-           WHERE  [name] = N'$(DatabaseName)')
-    BEGIN
-        ALTER DATABASE [$(DatabaseName)]
-            SET QUERY_STORE (CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 367)) 
-            WITH ROLLBACK IMMEDIATE;
-    END
+CREATE TABLE [dbo].[PeliculaAdultos] (
+    [Id]      INT        NOT NULL,
+    [Resumen] NCHAR (10) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_PeliculaAdultos_To_Pelicula]...';
+
+
+GO
+ALTER TABLE [dbo].[PeliculaAdultos] WITH NOCHECK
+    ADD CONSTRAINT [FK_PeliculaAdultos_To_Pelicula] FOREIGN KEY ([Id]) REFERENCES [dbo].[Pelicula] ([Id]);
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Accion_To_Pelicula]...';
+
+
+GO
+ALTER TABLE [dbo].[Accion] WITH NOCHECK
+    ADD CONSTRAINT [FK_Accion_To_Pelicula] FOREIGN KEY ([PeliculaId]) REFERENCES [dbo].[PeliculaAdultos] ([Id]);
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Horario_To_Pelicula]...';
+
+
+GO
+ALTER TABLE [dbo].[Horario] WITH NOCHECK
+    ADD CONSTRAINT [FK_Horario_To_Pelicula] FOREIGN KEY ([PeliculaId]) REFERENCES [dbo].[Pelicula] ([Id]) ON DELETE SET NULL;
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_PeliculaNinos_To_Pelicula]...';
+
+
+GO
+ALTER TABLE [dbo].[PeliculaNinos] WITH NOCHECK
+    ADD CONSTRAINT [FK_PeliculaNinos_To_Pelicula] FOREIGN KEY ([Id]) REFERENCES [dbo].[Pelicula] ([Id]);
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Relacion_To_Pelicula]...';
+
+
+GO
+ALTER TABLE [dbo].[Relacion_Pelicula_Actor] WITH NOCHECK
+    ADD CONSTRAINT [FK_Relacion_To_Pelicula] FOREIGN KEY ([IdPelicula]) REFERENCES [dbo].[Pelicula] ([Id]);
+
+
+GO
+/*
+Post-Deployment Script Template							
+--------------------------------------------------------------------------------------
+ This file contains SQL statements that will be appended to the build script.		
+ Use SQLCMD syntax to include a file in the post-deployment script.			
+ Example:      :r .\myfile.sql								
+ Use SQLCMD syntax to reference a variable in the post-deployment script.		
+ Example:      :setvar TableName MyTable							
+               SELECT * FROM [$(TableName)]					
+--------------------------------------------------------------------------------------
+
+DELETE FROM Accion;
+DBCC CHECKIDENT ('Accion', RESEED, 0);
+DELETE FROM Actor;
+DBCC CHECKIDENT ('Actor', RESEED, 0);
+
+DELETE FROM Cine;
+DBCC CHECKIDENT ('Cine', RESEED, 0);
+
+
+*/
+
+--Datos Cine
+MERGE INTO Cine AS Target
+USING (VALUES
+ (1, 'Cinepolis 1', 'San José, Desampados'),
+ (2, 'Cinepolis 2', 'San José, Acosta')
+)
+AS Source ([Id], Nombre, Ubicacion)
+ON Target.Id = Source.Id
+WHEN NOT MATCHED BY TARGET THEN
+INSERT (Nombre, Ubicacion)
+VALUES (Nombre, Ubicacion);
+
+
+--Datos Pelicula
+MERGE INTO Pelicula AS Target
+USING (VALUES
+ (1, 'Avatar', 'Acción y Aventura', 'James Cameron'),
+ (2, 'Gato con botas', 'Comedia y Aventura', 'Chris Miller'),
+ (3, 'Maverick', 'Acción',  'Joseph Kosinski'),
+ (4, 'Toy Story 3', 'Comedia',  'Lee Unkrich')
+)
+AS Source ([Id], Nombre, Genero, Director)
+ON Target.Id = Source.Id
+WHEN NOT MATCHED BY TARGET THEN
+INSERT (Nombre, Genero, Director)
+VALUES (Nombre, Genero, Director);
+
+GO
+
+GO
+PRINT N'Checking existing data against newly created constraints';
+
+
+GO
+USE [$(DatabaseName)];
+
+
+GO
+ALTER TABLE [dbo].[PeliculaAdultos] WITH CHECK CHECK CONSTRAINT [FK_PeliculaAdultos_To_Pelicula];
+
+ALTER TABLE [dbo].[Accion] WITH CHECK CHECK CONSTRAINT [FK_Accion_To_Pelicula];
+
+ALTER TABLE [dbo].[Horario] WITH CHECK CHECK CONSTRAINT [FK_Horario_To_Pelicula];
+
+ALTER TABLE [dbo].[PeliculaNinos] WITH CHECK CHECK CONSTRAINT [FK_PeliculaNinos_To_Pelicula];
+
+ALTER TABLE [dbo].[Relacion_Pelicula_Actor] WITH CHECK CHECK CONSTRAINT [FK_Relacion_To_Pelicula];
 
 
 GO

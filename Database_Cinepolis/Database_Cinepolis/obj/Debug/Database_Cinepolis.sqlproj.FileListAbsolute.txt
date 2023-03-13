@@ -2,9 +2,5 @@ C:\Users\XPC\source\repos\MVC_Cinepolis\Database_Cinepolis\Database_Cinepolis\bi
 C:\Users\XPC\source\repos\MVC_Cinepolis\Database_Cinepolis\Database_Cinepolis\bin\Debug\Database_Cinepolis.dll
 C:\Users\XPC\source\repos\MVC_Cinepolis\Database_Cinepolis\Database_Cinepolis\bin\Debug\Database_Cinepolis.pdb
 C:\Users\XPC\source\repos\MVC_Cinepolis\Database_Cinepolis\Database_Cinepolis\obj\Debug\Database_Cinepolis.sqlproj.AssemblyReference.cache
-C:\Users\XPC\source\repos\MVC_Cinepolis\Database_Cinepolis\Database_Cinepolis\obj\Debug\Model.xml
-C:\Users\XPC\source\repos\MVC_Cinepolis\Database_Cinepolis\Database_Cinepolis\obj\Debug\refactor.xml
-C:\Users\XPC\source\repos\MVC_Cinepolis\Database_Cinepolis\Database_Cinepolis\obj\Debug\postdeploy.sql
-C:\Users\XPC\source\repos\MVC_Cinepolis\Database_Cinepolis\Database_Cinepolis\obj\Debug\predeploy.sql
 C:\Users\XPC\source\repos\MVC_Cinepolis\Database_Cinepolis\Database_Cinepolis\obj\Debug\Database_Cinepolis.dll
 C:\Users\XPC\source\repos\MVC_Cinepolis\Database_Cinepolis\Database_Cinepolis\obj\Debug\Database_Cinepolis.pdb
