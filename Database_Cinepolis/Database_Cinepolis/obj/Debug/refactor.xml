@@ -1,48 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
-  <Operation Name="Rename Refactor" Key="a468bd54-69cf-4424-9955-861d3faeb2ef" ChangeDateTime="03/13/2023 17:36:35">
+<Operations Version="1.0">
+  <Operation Name="Rename Refactor" Key="a468bd54-69cf-4424-9955-861d3faeb2ef" ChangeDateTime="03/13/2023 17:36:35" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
     <Property Name="ElementName" Value="[dbo].[Cine].[Salas]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
     <Property Name="ParentElementName" Value="[dbo].[Cine]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="IdSalas" />
   </Operation>
-  <Operation Name="Rename Refactor" Key="1365c260-8c83-409f-8fa4-1219f657dcf3" ChangeDateTime="03/13/2023 17:53:44">
+  <Operation Name="Rename Refactor" Key="1365c260-8c83-409f-8fa4-1219f657dcf3" ChangeDateTime="03/13/2023 17:53:44" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
     <Property Name="ElementName" Value="[dbo].[Relacion_Pelicula_Actor].[Id]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
     <Property Name="ParentElementName" Value="[dbo].[Relacion_Pelicula_Actor]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="IdPelicula" />
   </Operation>
-  <Operation Name="Rename Refactor" Key="8a17bf2c-b3a1-498b-a955-e6abfa3e5f21" ChangeDateTime="03/13/2023 18:18:37">
+  <Operation Name="Rename Refactor" Key="8a17bf2c-b3a1-498b-a955-e6abfa3e5f21" ChangeDateTime="03/13/2023 18:18:37" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
     <Property Name="ElementName" Value="[dbo].[Relation_Producto_Combo].[Id]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
     <Property Name="ParentElementName" Value="[dbo].[Relation_Producto_Combo]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="ComboId" />
   </Operation>
-  <Operation Name="Rename Refactor" Key="2d02cbc2-5595-45d3-9f31-1bca0eb4370c" ChangeDateTime="03/13/2023 18:21:44">
+  <Operation Name="Rename Refactor" Key="2d02cbc2-5595-45d3-9f31-1bca0eb4370c" ChangeDateTime="03/13/2023 18:21:44" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
     <Property Name="ElementName" Value="[dbo].[ComboNino].[Id]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
     <Property Name="ParentElementName" Value="[dbo].[ComboNino]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="IdCombo" />
   </Operation>
-  <Operation Name="Rename Refactor" Key="b21b41bd-2b91-4289-bbc7-2c39a63efdb6" ChangeDateTime="03/13/2023 18:26:31">
+  <Operation Name="Rename Refactor" Key="b21b41bd-2b91-4289-bbc7-2c39a63efdb6" ChangeDateTime="03/13/2023 18:26:31" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
     <Property Name="ElementName" Value="[dbo].[ComboNino].[Juguete]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
     <Property Name="ParentElementName" Value="[dbo].[ComboNino]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="JugueteId" />
   </Operation>
-  <Operation Name="Rename Refactor" Key="db074aab-f39d-471a-a3fd-08aeb23f7427" ChangeDateTime="03/13/2023 18:29:26">
+  <Operation Name="Rename Refactor" Key="db074aab-f39d-471a-a3fd-08aeb23f7427" ChangeDateTime="03/13/2023 18:29:26" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
     <Property Name="ElementName" Value="[dbo].[ComboAdulto].[Tiquete]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
     <Property Name="ParentElementName" Value="[dbo].[ComboAdulto]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="TiqueteId" />
   </Operation>
-  <Operation Name="Rename Refactor" Key="cb202f4c-3687-447f-bb0b-b32bcd13dd19" ChangeDateTime="03/13/2023 20:38:31">
+  <Operation Name="Rename Refactor" Key="cb202f4c-3687-447f-bb0b-b32bcd13dd19" ChangeDateTime="03/13/2023 20:38:31" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
     <Property Name="ElementName" Value="[dbo].[Actor].[Nombre]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
     <Property Name="ParentElementName" Value="[dbo].[Actor]" />
