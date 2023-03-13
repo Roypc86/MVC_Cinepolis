@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33328.57
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp_Cinepolis", "WebApp_Cinepolis\WebApp_Cinepolis.csproj", "{E9A440C1-6735-4BDF-88DD-24B795B8E622}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp_Cinepolis.Tests", "WebApp_Cinepolis.Tests\WebApp_Cinepolis.Tests.csproj", "{2DB007B9-06C9-45A5-A428-7094BF2431D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9A440C1-6735-4BDF-88DD-24B795B8E622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9A440C1-6735-4BDF-88DD-24B795B8E622}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9A440C1-6735-4BDF-88DD-24B795B8E622}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9A440C1-6735-4BDF-88DD-24B795B8E622}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DB007B9-06C9-45A5-A428-7094BF2431D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DB007B9-06C9-45A5-A428-7094BF2431D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DB007B9-06C9-45A5-A428-7094BF2431D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DB007B9-06C9-45A5-A428-7094BF2431D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75143B87-CC94-498F-8440-8653B5111620}
+	EndGlobalSection
+EndGlobal
