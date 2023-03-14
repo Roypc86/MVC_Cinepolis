@@ -61,7 +61,6 @@
     <Build Include="Horario.sql" />
     <Build Include="Pelicula.sql" />
     <Build Include="Combo.sql" />
-    <Build Include="Producto.sql" />
     <Build Include="Tiquete.sql" />
   </ItemGroup>
   <ItemGroup>

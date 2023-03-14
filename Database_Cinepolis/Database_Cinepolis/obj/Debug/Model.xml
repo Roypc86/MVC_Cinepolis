@@ -107,25 +107,6 @@
 					<Element Type="SqlIndexedColumnSpecification">
 						<Relationship Name="Column">
 							<Entry>
-								<References Name="[dbo].[Producto].[Id]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Producto]" />
-				</Entry>
-			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="6" />
-		</Element>
-		<Element Type="SqlPrimaryKeyConstraint">
-			<Relationship Name="ColumnSpecifications">
-				<Entry>
-					<Element Type="SqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
 								<References Name="[dbo].[Tiquete].[Id]" />
 							</Entry>
 						</Relationship>
@@ -137,7 +118,7 @@
 					<References Name="[dbo].[Tiquete]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="7" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="6" />
 		</Element>
 		<Element Type="SqlPrimaryKeyConstraint">
 			<Relationship Name="ColumnSpecifications">
@@ -156,7 +137,7 @@
 					<References Name="[dbo].[Pelicula]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="8" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="7" />
 		</Element>
 		<Element Type="SqlPrimaryKeyConstraint">
 			<Relationship Name="ColumnSpecifications">
@@ -175,7 +156,7 @@
 					<References Name="[dbo].[Combo]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="9" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="8" />
 		</Element>
 		<Element Type="SqlTable" Name="[dbo].[Cine]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -254,7 +235,7 @@
 								</Element>
 							</Entry>
 						</Relationship>
-						<AttachedAnnotation Disambiguator="9" />
+						<AttachedAnnotation Disambiguator="8" />
 					</Element>
 				</Entry>
 				<Entry>
@@ -318,14 +299,30 @@
 						</Relationship>
 					</Element>
 				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[Combo].[Productos]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="200" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
 			</Relationship>
 			<Relationship Name="Schema">
 				<Entry>
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="9" />
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="10" />
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="11" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_Combo_To_Cine]">
 			<Relationship Name="Columns">
@@ -348,7 +345,7 @@
 					<References Name="[dbo].[Cine]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="10" />
+			<AttachedAnnotation Disambiguator="9" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_Combo_To_Tiquete]">
 			<Relationship Name="Columns">
@@ -371,7 +368,7 @@
 					<References Name="[dbo].[Tiquete]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="11" />
+			<AttachedAnnotation Disambiguator="10" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_Horario_To_Pelicula]">
 			<Property Name="OnDeleteAction" Value="2" />
@@ -395,7 +392,7 @@
 					<References Name="[dbo].[Pelicula]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="12" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="11" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_Horario_To_Sala]">
 			<Property Name="OnDeleteAction" Value="1" />
@@ -419,7 +416,7 @@
 					<References Name="[dbo].[Sala]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="13" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="12" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_Sala_To_Cine]">
 			<Relationship Name="Columns">
@@ -442,7 +439,7 @@
 					<References Name="[dbo].[Cine]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="14" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="13" />
 		</Element>
 		<Element Type="SqlTable" Name="[dbo].[Horario]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -548,8 +545,8 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="13" />
 			<AttachedAnnotation Disambiguator="12" />
+			<AttachedAnnotation Disambiguator="11" />
 		</Element>
 		<Element Type="SqlTable" Name="[dbo].[Pelicula]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -568,7 +565,7 @@
 								</Element>
 							</Entry>
 						</Relationship>
-						<AttachedAnnotation Disambiguator="8" />
+						<AttachedAnnotation Disambiguator="7" />
 					</Element>
 				</Entry>
 				<Entry>
@@ -689,66 +686,6 @@
 				</Entry>
 			</Relationship>
 		</Element>
-		<Element Type="SqlTable" Name="[dbo].[Producto]">
-			<Property Name="IsAnsiNullsOn" Value="True" />
-			<Relationship Name="Columns">
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[dbo].[Producto].[Id]">
-						<Property Name="IsNullable" Value="False" />
-						<Property Name="IsIdentity" Value="True" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[int]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-						<AttachedAnnotation Disambiguator="6" />
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[dbo].[Producto].[Nombre]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="30" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[nchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[dbo].[Producto].[Productos]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="100" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-			</Relationship>
-			<Relationship Name="Schema">
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[dbo]" />
-				</Entry>
-			</Relationship>
-		</Element>
 		<Element Type="SqlTable" Name="[dbo].[Sala]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
 			<Relationship Name="Columns">
@@ -805,7 +742,7 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="14" />
+			<AttachedAnnotation Disambiguator="13" />
 		</Element>
 		<Element Type="SqlTable" Name="[dbo].[Tiquete]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -825,7 +762,7 @@
 								</Element>
 							</Entry>
 						</Relationship>
-						<AttachedAnnotation Disambiguator="7" />
+						<AttachedAnnotation Disambiguator="6" />
 					</Element>
 				</Entry>
 				<Entry>

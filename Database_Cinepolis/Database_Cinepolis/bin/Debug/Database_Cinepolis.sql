@@ -116,20 +116,6 @@ WHEN NOT MATCHED BY TARGET THEN
 INSERT (Fecha, Hora_inicial, Hora_final, SalaId, PeliculaId)
 VALUES (Fecha, Hora_inicial, Hora_final, SalaId, PeliculaId);
 
---Datos Producto
-MERGE INTO Producto AS Target
-USING (VALUES
- (1, 'Palomitas de caramelo'),
- (2, 'Papas'),
- (3, 'Refresco'),
- (4, 'Hot dog')
-)
-AS Source ([Id], Nombre)
-ON Target.Id = Source.Id
-WHEN NOT MATCHED BY TARGET THEN
-INSERT (Nombre)
-VALUES (Nombre);
-
 --Datos Tiquete
 MERGE INTO Tiquete AS Target
 USING (VALUES
@@ -146,18 +132,18 @@ VALUES (Nombre);
 --Datos Combo
 MERGE INTO Combo AS Target
 USING (VALUES
- (1, 1, 0, 'Niño avatar', NULL),
- (2, 1, 0, 'Rex', NULL),
- (3, 1, 1, NULL, 1),
- (4, 1, 1, NULL, 2),
- (5, 2, 0, 'Jet', NULL),
- (6, 2, 1, NULL, 3)
+ (1, 1, 0, 'Niño avatar', NULL, 'Refresco, Palomitas de caramelo'),
+ (2, 1, 0, 'Rex', NULL, 'Refresco, Papas'),
+ (3, 1, 1, NULL, 1, 'Refresco, Hot dog'),
+ (4, 1, 1, NULL, 2, 'Refresco, Palomitas de caramelo'),
+ (5, 2, 0, 'Jet', NULL, 'Refresco, Palomitas de caramelo'),
+ (6, 2, 1, NULL, 3, 'Refresco, Palomitas de caramelo')
 )
-AS Source ([Id], CineId, EsAdulto, Juguete, TiqueteId)
+AS Source ([Id], CineId, EsAdulto, Juguete, TiqueteId, Productos)
 ON Target.Id = Source.Id
 WHEN NOT MATCHED BY TARGET THEN
-INSERT (Id, CineId, EsAdulto, Juguete, TiqueteId)
-VALUES (Id, CineId, EsAdulto, Juguete, TiqueteId);
+INSERT (Id, CineId, EsAdulto, Juguete, TiqueteId, Productos)
+VALUES (Id, CineId, EsAdulto, Juguete, TiqueteId, Productos);
 GO
 
 GO
