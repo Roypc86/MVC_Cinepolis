@@ -1,0 +1,40 @@
+﻿@model WebApp_Cinepolis.Models.Cine
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+
+<h3>¿Está seguro de que desea borrar la siguiente película?</h3>
+<div>
+    <h4>Detalles</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            Ubicación
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ubicacion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Borrar" class="btn btn-default" /> |
+            @Html.ActionLink("Atrás", "Index")
+        </div>
+    }
+</div>

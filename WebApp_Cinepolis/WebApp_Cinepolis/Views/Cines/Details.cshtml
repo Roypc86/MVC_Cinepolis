@@ -1,0 +1,33 @@
+﻿@model WebApp_Cinepolis.Models.Cine
+
+@{
+    ViewBag.Title = "Detalles";
+}
+<h2>Detalles de la película</h2>
+<div>
+    <br>
+    <h4>Cine</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ubicacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ubicacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Atrás", "Index")
+</p>
