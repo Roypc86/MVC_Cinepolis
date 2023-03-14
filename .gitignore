@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Database_Cinepolis/Database_Cinepolis/Database_Cinepolis.dbmdl
+/Database_Cinepolis/Database_Cinepolis/Database_Cinepolis.jfm
