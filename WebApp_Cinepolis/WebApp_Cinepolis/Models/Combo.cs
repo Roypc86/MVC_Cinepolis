@@ -15,8 +15,8 @@ namespace WebApp_Cinepolis.Models
     public partial class Combo
     {
         public int Id { get; set; }
-        public Nullable<int> CineId { get; set; }
-        public Nullable<bool> EsAdulto { get; set; }
+        public int CineId { get; set; }
+        public bool EsAdulto { get; set; }
         public string Juguete { get; set; }
         public Nullable<int> TiqueteId { get; set; }
         public string Productos { get; set; }
