@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33328.57
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp_Cinepolis", "WebApp_Cinepolis\WebApp_Cinepolis.csproj", "{E9A440C1-6735-4BDF-88DD-24B795B8E622}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp_Cinepolis", "WebApp_Cinepolis\WebApp_Cinepolis.csproj", "{25D94AAB-3A1E-491A-9A55-6855C6057240}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp_Cinepolis.Tests", "WebApp_Cinepolis.Tests\WebApp_Cinepolis.Tests.csproj", "{2DB007B9-06C9-45A5-A428-7094BF2431D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp_Cinepolis.Tests", "WebApp_Cinepolis.Tests\WebApp_Cinepolis.Tests.csproj", "{DBBC2003-8663-4317-BF37-4698C8425074}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E9A440C1-6735-4BDF-88DD-24B795B8E622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9A440C1-6735-4BDF-88DD-24B795B8E622}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9A440C1-6735-4BDF-88DD-24B795B8E622}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9A440C1-6735-4BDF-88DD-24B795B8E622}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2DB007B9-06C9-45A5-A428-7094BF2431D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DB007B9-06C9-45A5-A428-7094BF2431D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DB007B9-06C9-45A5-A428-7094BF2431D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DB007B9-06C9-45A5-A428-7094BF2431D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25D94AAB-3A1E-491A-9A55-6855C6057240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25D94AAB-3A1E-491A-9A55-6855C6057240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25D94AAB-3A1E-491A-9A55-6855C6057240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25D94AAB-3A1E-491A-9A55-6855C6057240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBBC2003-8663-4317-BF37-4698C8425074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBBC2003-8663-4317-BF37-4698C8425074}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBBC2003-8663-4317-BF37-4698C8425074}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBBC2003-8663-4317-BF37-4698C8425074}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {75143B87-CC94-498F-8440-8653B5111620}
+		SolutionGuid = {269F6E44-6CCF-4460-9629-3A23970D9894}
 	EndGlobalSection
 EndGlobal

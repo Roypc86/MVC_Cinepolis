@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2DB007B9-06C9-45A5-A428-7094BF2431D8}</ProjectGuid>
+    <ProjectGuid>{DBBC2003-8663-4317-BF37-4698C8425074}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WebApp_Cinepolis.Tests</RootNamespace>
@@ -100,7 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebApp_Cinepolis\WebApp_Cinepolis.csproj">
-      <Project>{E9A440C1-6735-4BDF-88DD-24B795B8E622}</Project>
+      <Project>{25D94AAB-3A1E-491A-9A55-6855C6057240}</Project>
       <Name>WebApp_Cinepolis</Name>
     </ProjectReference>
   </ItemGroup>
