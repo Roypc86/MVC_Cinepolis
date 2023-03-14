@@ -1,0 +1,98 @@
+﻿@model IEnumerable<WebApp_Cinepolis.Models.Combo>
+
+@{
+    ViewBag.Title = "Combos";
+}
+
+<h2>Lista de Combos</h2>
+
+
+<br>
+<h3>Combos para adulto</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Productos)
+        </th>
+        <th>
+            Cine Asociado
+        </th>
+        <th>
+            Tiquete
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    if (item.EsAdulto == true) { 
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Productos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cine.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tiquete.Nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+    
+    }
+    
+}
+
+</table>
+<p>
+    @Html.ActionLink("Agregar combo para adulto", "Create")
+</p>
+<br>
+<h3>Combos para niño</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Productos)
+        </th>
+        <th>
+            Cine Asociado
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Juguete)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.EsAdulto == false)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Productos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cine.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Juguete)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+        }
+
+
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Agregar combo para niño", "Create")
+</p>

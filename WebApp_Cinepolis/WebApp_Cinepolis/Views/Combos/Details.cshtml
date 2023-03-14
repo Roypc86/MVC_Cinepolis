@@ -1,0 +1,58 @@
+﻿@model WebApp_Cinepolis.Models.Combo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Combo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EsAdulto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsAdulto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Juguete)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Juguete)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Productos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Productos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cine.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cine.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tiquete.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tiquete.Nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
