@@ -5,5 +5,7 @@
     [Genero] NVARCHAR(30) NULL, 
     [Director] NVARCHAR(30) NULL, 
     [EsAdultos] BIT NULL, 
-    [Resumen] NVARCHAR(3000) NULL 
+    [Acciones] NVARCHAR(300) NULL, 
+    [Actores] NVARCHAR(300) NULL,
+    [Resumen] NVARCHAR(3000) NULL  
 )

@@ -40,254 +40,6 @@ USE [$(DatabaseName)];
 
 
 GO
-PRINT N'Creating Table [dbo].[Accion]...';
-
-
-GO
-CREATE TABLE [dbo].[Accion] (
-    [Id]         INT           IDENTITY (1, 1) NOT NULL,
-    [Nombre]     NVARCHAR (50) NULL,
-    [PeliculaId] INT           NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating Table [dbo].[Actor]...';
-
-
-GO
-CREATE TABLE [dbo].[Actor] (
-    [Id]               INT           NOT NULL,
-    [Nombre_Apellidos] NVARCHAR (50) NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating Table [dbo].[Cine]...';
-
-
-GO
-CREATE TABLE [dbo].[Cine] (
-    [Id]        INT           IDENTITY (1, 1) NOT NULL,
-    [Nombre]    NVARCHAR (60) NULL,
-    [Ubicacion] NVARCHAR (60) NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating Table [dbo].[Combo]...';
-
-
-GO
-CREATE TABLE [dbo].[Combo] (
-    [Id]        INT NOT NULL,
-    [CineId]    INT NULL,
-    [EsAdulto]  BIT NULL,
-    [JugueteId] INT NULL,
-    [TiqueteId] INT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating Table [dbo].[Horario]...';
-
-
-GO
-CREATE TABLE [dbo].[Horario] (
-    [Id]           INT      IDENTITY (1, 1) NOT NULL,
-    [Fecha]        DATE     NULL,
-    [Hora_inicial] TIME (7) NULL,
-    [Hora_final]   TIME (7) NULL,
-    [SalaId]       INT      NULL,
-    [PeliculaId]   INT      NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating Table [dbo].[Juguete]...';
-
-
-GO
-CREATE TABLE [dbo].[Juguete] (
-    [Id]     INT        IDENTITY (1, 1) NOT NULL,
-    [Nombre] NCHAR (30) NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating Table [dbo].[Pelicula]...';
-
-
-GO
-CREATE TABLE [dbo].[Pelicula] (
-    [Id]        INT             NOT NULL,
-    [Nombre]    NVARCHAR (30)   NULL,
-    [Genero]    NVARCHAR (30)   NULL,
-    [Director]  NVARCHAR (30)   NULL,
-    [EsAdultos] BIT             NULL,
-    [Resumen]   NVARCHAR (3000) NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating Table [dbo].[Producto]...';
-
-
-GO
-CREATE TABLE [dbo].[Producto] (
-    [Id]     INT        IDENTITY (1, 1) NOT NULL,
-    [Nombre] NCHAR (30) NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating Table [dbo].[Relacion_Pelicula_Actor]...';
-
-
-GO
-CREATE TABLE [dbo].[Relacion_Pelicula_Actor] (
-    [PeliculaId] INT NOT NULL,
-    [ActorId]    INT NOT NULL,
-    CONSTRAINT [relacion_pelicula_actor_pk] PRIMARY KEY CLUSTERED ([PeliculaId] ASC, [ActorId] ASC)
-);
-
-
-GO
-PRINT N'Creating Table [dbo].[Relation_Producto_Combo]...';
-
-
-GO
-CREATE TABLE [dbo].[Relation_Producto_Combo] (
-    [ComboId]    INT NOT NULL,
-    [ProductoId] INT NOT NULL,
-    CONSTRAINT [relacion_combo_producto_pk] PRIMARY KEY CLUSTERED ([ComboId] ASC, [ProductoId] ASC)
-);
-
-
-GO
-PRINT N'Creating Table [dbo].[Sala]...';
-
-
-GO
-CREATE TABLE [dbo].[Sala] (
-    [Id]        INT NOT NULL,
-    [Capacidad] INT NULL,
-    [CineId]    INT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating Table [dbo].[Tiquete]...';
-
-
-GO
-CREATE TABLE [dbo].[Tiquete] (
-    [Id]     INT           IDENTITY (1, 1) NOT NULL,
-    [Nombre] NVARCHAR (30) NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating Foreign Key [dbo].[FK_Accion_To_Pelicula]...';
-
-
-GO
-ALTER TABLE [dbo].[Accion] WITH NOCHECK
-    ADD CONSTRAINT [FK_Accion_To_Pelicula] FOREIGN KEY ([PeliculaId]) REFERENCES [dbo].[Pelicula] ([Id]) ON DELETE CASCADE;
-
-
-GO
-PRINT N'Creating Foreign Key [dbo].[FK_Combo_To_Cine]...';
-
-
-GO
-ALTER TABLE [dbo].[Combo] WITH NOCHECK
-    ADD CONSTRAINT [FK_Combo_To_Cine] FOREIGN KEY ([CineId]) REFERENCES [dbo].[Cine] ([Id]);
-
-
-GO
-PRINT N'Creating Foreign Key [dbo].[FK_Combo_To_Juguete]...';
-
-
-GO
-ALTER TABLE [dbo].[Combo] WITH NOCHECK
-    ADD CONSTRAINT [FK_Combo_To_Juguete] FOREIGN KEY ([JugueteId]) REFERENCES [dbo].[Juguete] ([Id]);
-
-
-GO
-PRINT N'Creating Foreign Key [dbo].[FK_Combo_To_Tiquete]...';
-
-
-GO
-ALTER TABLE [dbo].[Combo] WITH NOCHECK
-    ADD CONSTRAINT [FK_Combo_To_Tiquete] FOREIGN KEY ([TiqueteId]) REFERENCES [dbo].[Tiquete] ([Id]);
-
-
-GO
-PRINT N'Creating Foreign Key [dbo].[FK_Horario_To_Sala]...';
-
-
-GO
-ALTER TABLE [dbo].[Horario] WITH NOCHECK
-    ADD CONSTRAINT [FK_Horario_To_Sala] FOREIGN KEY ([SalaId]) REFERENCES [dbo].[Sala] ([Id]) ON DELETE CASCADE;
-
-
-GO
-PRINT N'Creating Foreign Key [dbo].[FK_Horario_To_Pelicula]...';
-
-
-GO
-ALTER TABLE [dbo].[Horario] WITH NOCHECK
-    ADD CONSTRAINT [FK_Horario_To_Pelicula] FOREIGN KEY ([PeliculaId]) REFERENCES [dbo].[Pelicula] ([Id]) ON DELETE SET NULL;
-
-
-GO
-PRINT N'Creating Foreign Key [dbo].[FK_Relacion_To_Pelicula]...';
-
-
-GO
-ALTER TABLE [dbo].[Relacion_Pelicula_Actor] WITH NOCHECK
-    ADD CONSTRAINT [FK_Relacion_To_Pelicula] FOREIGN KEY ([PeliculaId]) REFERENCES [dbo].[Pelicula] ([Id]) ON DELETE CASCADE;
-
-
-GO
-PRINT N'Creating Foreign Key [dbo].[FK_Relacion_To_Actor]...';
-
-
-GO
-ALTER TABLE [dbo].[Relacion_Pelicula_Actor] WITH NOCHECK
-    ADD CONSTRAINT [FK_Relacion_To_Actor] FOREIGN KEY ([ActorId]) REFERENCES [dbo].[Actor] ([Id]) ON DELETE CASCADE;
-
-
-GO
-PRINT N'Creating Foreign Key [dbo].[FK_Relation_Combo_To_Producto]...';
-
-
-GO
-ALTER TABLE [dbo].[Relation_Producto_Combo] WITH NOCHECK
-    ADD CONSTRAINT [FK_Relation_Combo_To_Producto] FOREIGN KEY ([ProductoId]) REFERENCES [dbo].[Producto] ([Id]);
-
-
-GO
-PRINT N'Creating Foreign Key [dbo].[FK_Sala_To_Cine]...';
-
-
-GO
-ALTER TABLE [dbo].[Sala] WITH NOCHECK
-    ADD CONSTRAINT [FK_Sala_To_Cine] FOREIGN KEY ([CineId]) REFERENCES [dbo].[Cine] ([Id]);
-
-
-GO
 /*
 Post-Deployment Script Template							
 --------------------------------------------------------------------------------------
@@ -325,56 +77,16 @@ VALUES (Nombre, Ubicacion);
 --Datos Pelicula
 MERGE INTO Pelicula AS Target
 USING (VALUES
- (1, 'Avatar', 'Acción y Aventura', 'James Cameron', 1, 'Avatar (comercializada como Avatar de James Cameron) es una película épica de ciencia ficción militar y animación estadounidense de 2009,6​7​ escrita, producida y dirigida por James Cameron y protagonizada por [Sam Worthington], [Zoe Saldaña], [Sigourney Weaver], Stephen Lang y Michelle Rodriguez.'),
- (2, 'Gato con botas', 'Comedia y Aventura', 'Chris Miller', 0, 'Un pobre molinero fallece dejando como única herencia al pequeño de sus hijos un gato. El joven decide quedarse con él y éste le promete que si confía en él y le consigue un par de botas y un saco, saldrán de la pobreza. El astuto gato se hace pasar por siervo de un gran marqués impresionando con sus regalos al rey. Luego engaña a un malvado ogro cambiaformas para devorarlo, haciéndose con su castillo y sus tierras y prepara un encuentro entre su joven amo, el nuevo marqués de Carabás, y la familia real, fingiendo que ha sido asaltado. Así, el joven acaba convertido en un noble y casándose con la princesa gracias al ingenio de su gato.'),
- (3, 'Maverick', 'Acción',  'Joseph Kosinski', 1, 'Tras más de treinta años de servicio como uno de los mejores aviadores de la Armada, Pete “Maverick” Mitchell (Tom Cruise) está en su casa, forzando los límites como valiente piloto de pruebas y esquivando el ascenso de rango que le dejaría en tierra. En el transcurso de unas sesiones de formación para que un destacamento de graduados de TOPGUN llevase a cabo una misión especializada que ningún piloto vivo había realizado, Maverick se encuentra con el teniente Bradley Bradshaw (Miles Teller), cuyo indicativo de llamada es “Rooster”, el hijo del difunto amigo de Maverick y oficial de intercepción y radar, el teniente Nick Bradshaw, también conocido como “Goose”.'),
- (4, 'Toy Story 3', 'Comedia',  'Lee Unkrich', 0, 'Toy Story 3 es la tercera película de la saga de animación Toy Story. La película fue distribuida en cines en formato analógico, digital y Disney Digital 3D.')
+ (1, 'Avatar', 'Acción y Aventura', 'James Cameron', 1, 'A_actor 1, A_actor 2', 'A_accion_1, A_accion 2', 'Avatar (comercializada como Avatar de James Cameron) es una película épica de ciencia ficción militar y animación estadounidense de 2009,6​7​ escrita, producida y dirigida por James Cameron y protagonizada por [Sam Worthington], [Zoe Saldaña], [Sigourney Weaver], Stephen Lang y Michelle Rodriguez.'),
+ (2, 'Gato con botas', 'Comedia y Aventura', 'Chris Miller', 0,'G_actor 1, G_actor 2', 'G_accion_1, G_accion 2', 'Un pobre molinero fallece dejando como única herencia al pequeño de sus hijos un gato. El joven decide quedarse con él y éste le promete que si confía en él y le consigue un par de botas y un saco, saldrán de la pobreza. El astuto gato se hace pasar por siervo de un gran marqués impresionando con sus regalos al rey. Luego engaña a un malvado ogro cambiaformas para devorarlo, haciéndose con su castillo y sus tierras y prepara un encuentro entre su joven amo, el nuevo marqués de Carabás, y la familia real, fingiendo que ha sido asaltado. Así, el joven acaba convertido en un noble y casándose con la princesa gracias al ingenio de su gato.'),
+ (3, 'Maverick', 'Acción',  'Joseph Kosinski', 1, 'Thomas Cruise Mapother, Glen Power Jr' , 'M_accion_1, M_accion 2', 'Tras más de treinta años de servicio como uno de los mejores aviadores de la Armada, Pete “Maverick” Mitchell (Tom Cruise) está en su casa, forzando los límites como valiente piloto de pruebas y esquivando el ascenso de rango que le dejaría en tierra. En el transcurso de unas sesiones de formación para que un destacamento de graduados de TOPGUN llevase a cabo una misión especializada que ningún piloto vivo había realizado, Maverick se encuentra con el teniente Bradley Bradshaw (Miles Teller), cuyo indicativo de llamada es “Rooster”, el hijo del difunto amigo de Maverick y oficial de intercepción y radar, el teniente Nick Bradshaw, también conocido como “Goose”.'),
+ (4, 'Toy Story 3', 'Comedia',  'Lee Unkrich', 0, 'T1, T2', 'T_accion 1, T_accion 2','Toy Story 3 es la tercera película de la saga de animación Toy Story. La película fue distribuida en cines en formato analógico, digital y Disney Digital 3D.')
 )
-AS Source ([Id], Nombre, Genero, Director, EsAdultos, Resumen)
+AS Source ([Id], Nombre, Genero, Director, EsAdultos, Actores, Acciones, Resumen)
 ON Target.Id = Source.Id
 WHEN NOT MATCHED BY TARGET THEN
-INSERT (Id, Nombre, Genero, Director, EsAdultos, Resumen)
-VALUES (Id, Nombre, Genero, Director, EsAdultos, Resumen);
-
---Datos Accion
-MERGE INTO Accion AS Target
-USING (VALUES
- (1, 'Sangre', 1),
- (2, 'Lenguaje inapropiado', 1),
- (3, 'Escenas inapropiadas', 3),
- (4, 'Lenguaje inapropiado', 3)
-)
-AS Source ([Id], Nombre, PeliculaId)
-ON Target.Id = Source.Id
-WHEN NOT MATCHED BY TARGET THEN
-INSERT (Nombre, PeliculaId)
-VALUES (Nombre, PeliculaId);
-
-
---Datos Actores
-MERGE INTO Actor AS Target
-USING (VALUES
- (1, 'Thomas Cruise Mapother'),
- (2, 'Glen Power Jr')
-)
-AS Source ([Id], Nombre_Apellidos)
-ON Target.Id = Source.Id
-WHEN NOT MATCHED BY TARGET THEN
-INSERT (Id, Nombre_Apellidos)
-VALUES (Id, Nombre_Apellidos);
-
---Datos relación Actor-Pelicula
-MERGE INTO Relacion_Pelicula_Actor AS Target
-USING (VALUES
- (3, 1),
- (3, 2)
-)
-AS Source (PeliculaId, ActorId)
-ON Target.PeliculaId = Source.PeliculaId
-WHEN NOT MATCHED BY TARGET THEN
-INSERT (PeliculaId, ActorId)
-VALUES (PeliculaId, ActorId);
-
+INSERT (Id, Nombre, Genero, Director, EsAdultos, Actores, Acciones, Resumen)
+VALUES (Id, Nombre, Genero, Director, EsAdultos, Actores, Acciones, Resumen);
 
 --Datos Sala
 MERGE INTO Sala AS Target
@@ -418,20 +130,6 @@ WHEN NOT MATCHED BY TARGET THEN
 INSERT (Nombre)
 VALUES (Nombre);
 
---Datos Juguete
-MERGE INTO Juguete AS Target
-USING (VALUES
- (1, 'Niño avatar'),
- (2, 'Rex'),
- (3, 'Jet'),
- (4, 'Gato')
-)
-AS Source ([Id], Nombre)
-ON Target.Id = Source.Id
-WHEN NOT MATCHED BY TARGET THEN
-INSERT (Nombre)
-VALUES (Nombre);
-
 --Datos Tiquete
 MERGE INTO Tiquete AS Target
 USING (VALUES
@@ -448,49 +146,19 @@ VALUES (Nombre);
 --Datos Combo
 MERGE INTO Combo AS Target
 USING (VALUES
- (1, 1, 0, 1, NULL),
- (2, 1, 0, 2, NULL),
+ (1, 1, 0, 'Niño avatar', NULL),
+ (2, 1, 0, 'Rex', NULL),
  (3, 1, 1, NULL, 1),
  (4, 1, 1, NULL, 2),
- (5, 2, 0, 3, NULL),
+ (5, 2, 0, 'Jet', NULL),
  (6, 2, 1, NULL, 3)
 )
-AS Source ([Id], CineId, EsAdulto, JugueteId, TiqueteId)
+AS Source ([Id], CineId, EsAdulto, Juguete, TiqueteId)
 ON Target.Id = Source.Id
 WHEN NOT MATCHED BY TARGET THEN
-INSERT (Id, CineId, EsAdulto, JugueteId, TiqueteId)
-VALUES (Id, CineId, EsAdulto, JugueteId, TiqueteId);
+INSERT (Id, CineId, EsAdulto, Juguete, TiqueteId)
+VALUES (Id, CineId, EsAdulto, Juguete, TiqueteId);
 GO
-
-GO
-PRINT N'Checking existing data against newly created constraints';
-
-
-GO
-USE [$(DatabaseName)];
-
-
-GO
-ALTER TABLE [dbo].[Accion] WITH CHECK CHECK CONSTRAINT [FK_Accion_To_Pelicula];
-
-ALTER TABLE [dbo].[Combo] WITH CHECK CHECK CONSTRAINT [FK_Combo_To_Cine];
-
-ALTER TABLE [dbo].[Combo] WITH CHECK CHECK CONSTRAINT [FK_Combo_To_Juguete];
-
-ALTER TABLE [dbo].[Combo] WITH CHECK CHECK CONSTRAINT [FK_Combo_To_Tiquete];
-
-ALTER TABLE [dbo].[Horario] WITH CHECK CHECK CONSTRAINT [FK_Horario_To_Sala];
-
-ALTER TABLE [dbo].[Horario] WITH CHECK CHECK CONSTRAINT [FK_Horario_To_Pelicula];
-
-ALTER TABLE [dbo].[Relacion_Pelicula_Actor] WITH CHECK CHECK CONSTRAINT [FK_Relacion_To_Pelicula];
-
-ALTER TABLE [dbo].[Relacion_Pelicula_Actor] WITH CHECK CHECK CONSTRAINT [FK_Relacion_To_Actor];
-
-ALTER TABLE [dbo].[Relation_Producto_Combo] WITH CHECK CHECK CONSTRAINT [FK_Relation_Combo_To_Producto];
-
-ALTER TABLE [dbo].[Sala] WITH CHECK CHECK CONSTRAINT [FK_Sala_To_Cine];
-
 
 GO
 PRINT N'Update complete.';

@@ -60,13 +60,8 @@
     <Build Include="Sala.sql" />
     <Build Include="Horario.sql" />
     <Build Include="Pelicula.sql" />
-    <Build Include="Actor.sql" />
-    <Build Include="Relacion_Pelicula_Actor.sql" />
-    <Build Include="Accion.sql" />
     <Build Include="Combo.sql" />
-    <Build Include="Relation_Producto_Combo.sql" />
     <Build Include="Producto.sql" />
-    <Build Include="Juguete.sql" />
     <Build Include="Tiquete.sql" />
   </ItemGroup>
   <ItemGroup>
