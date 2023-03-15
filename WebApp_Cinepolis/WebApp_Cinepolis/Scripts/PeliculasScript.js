@@ -2,6 +2,7 @@
 
 textarea.addEventListener('keydown', autosize);
 document.addEventListener("DOMContentLoaded", clickRadioButtonAdultos);
+document.addEventListener("DOMContentLoaded", autosize_onload);
 
 function autosize() {
     var el = this;
@@ -12,6 +13,13 @@ function autosize() {
     }, 0);
 }
 
+function autosize_onload() {
+    var el = textarea;
+    setTimeout(function () {
+        textarea.style.cssText = 'height: fit-content; padding:0; width: 100%;';
+        textarea.style.cssText = 'height:' + el.scrollHeight + 'px; width: 100%;';
+    }, 0);
+}
 
 function clickRadioButtonAdultos() {
 
