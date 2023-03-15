@@ -23,9 +23,9 @@ function autosize_onload() {
 
 function clickRadioButtonAdultos() {
 
-    //Obtención de los elementos de la edición del Juguete
+    //Obtención de los elementos de la edición de Acciones
     var divAcciones = document.getElementById("form_acciones");
-    console.log($("#AdultosRadio").prop('checked'))
+    
     // Ocultado de elementos según el tipo de combo que sea
     if ($("#AdultosRadio").prop('checked')) {//Caso es para adulto
         divAcciones.style = "display: block;";
