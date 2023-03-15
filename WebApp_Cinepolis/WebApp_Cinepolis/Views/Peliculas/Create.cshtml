@@ -1,27 +1,18 @@
 ﻿@model WebApp_Cinepolis.Models.Pelicula
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Agregar";
 }
 
-<h2>Create</h2>
+<h2>Agregar una nueva película</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Pelicula</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -32,7 +23,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Genero, htmlAttributes: new { @class = "control-label col-md-2" })
+            <span class="control-label col-md-2"><strong>Género</strong></span>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Genero, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Genero, "", new { @class = "text-danger" })
@@ -48,16 +39,24 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EsAdultos, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.EsAdultos)
-                    @Html.ValidationMessageFor(model => model.EsAdultos, "", new { @class = "text-danger" })
-                </div>
+            <span class="control-label col-md-2"><strong>Restricción de edad</strong></span>
+            <div class="col-md-3" style="margin-top: 5px">
+                <center>
+                    <table>
+                        <tr>
+                            <td style="padding-right:10px">Adultos</td>
+                            <td style="padding-right:20px">@Html.RadioButtonFor(model => model.EsAdultos, true, new { @id = "AdultosRadio", @onchange = "clickRadioButtonAdultos();" }) </td>
+                            <td style="padding-right:10px">Niños</td>
+                            <td> @Html.RadioButtonFor(model => model.EsAdultos, true, new { @id = "NinosRadio", @onchange = "clickRadioButtonAdultos();" }) </td>
+                        </tr>
+                    </table>
+                </center>
+                @Html.ValidationMessageFor(model => model.EsAdultos, "", new { @class = "text-danger" })
             </div>
+
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="form_acciones">
             @Html.LabelFor(model => model.Acciones, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Acciones, new { htmlAttributes = new { @class = "form-control" } })
@@ -76,23 +75,24 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Resumen, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Resumen, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Resumen, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Resumen, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Guardar" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Atrás", "Index")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/PeliculasScript.js")
 }
