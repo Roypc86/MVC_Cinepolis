@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Combo]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
     [CineId] int NULL, 
     [EsAdulto] BIT NULL, 
     [Juguete] NVARCHAR(40) NULL, 

@@ -43,8 +43,8 @@ USING (VALUES
 AS Source ([Id], Nombre, Genero, Director, EsAdultos, Actores, Acciones, Resumen)
 ON Target.Id = Source.Id
 WHEN NOT MATCHED BY TARGET THEN
-INSERT (Id, Nombre, Genero, Director, EsAdultos, Actores, Acciones, Resumen)
-VALUES (Id, Nombre, Genero, Director, EsAdultos, Actores, Acciones, Resumen);
+INSERT (Nombre, Genero, Director, EsAdultos, Actores, Acciones, Resumen)
+VALUES (Nombre, Genero, Director, EsAdultos, Actores, Acciones, Resumen);
 
 --Datos Sala
 MERGE INTO Sala AS Target
@@ -57,8 +57,8 @@ USING (VALUES
 AS Source ([Id], Capacidad, CineId)
 ON Target.Id = Source.Id
 WHEN NOT MATCHED BY TARGET THEN
-INSERT ([Id], Capacidad, CineId)
-VALUES ([Id], Capacidad, CineId);
+INSERT (Capacidad, CineId)
+VALUES (Capacidad, CineId);
 
 --Datos Horario
 MERGE INTO Horario AS Target
@@ -100,5 +100,5 @@ USING (VALUES
 AS Source ([Id], CineId, EsAdulto, Juguete, TiqueteId, Productos)
 ON Target.Id = Source.Id
 WHEN NOT MATCHED BY TARGET THEN
-INSERT (Id, CineId, EsAdulto, Juguete, TiqueteId, Productos)
-VALUES (Id, CineId, EsAdulto, Juguete, TiqueteId, Productos);
+INSERT (CineId, EsAdulto, Juguete, TiqueteId, Productos)
+VALUES (CineId, EsAdulto, Juguete, TiqueteId, Productos);
