@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Genero)
+            Género
         </dt>
 
         <dd>
@@ -35,20 +35,23 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EsAdultos)
+            Restricción de edad
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.EsAdultos)
         </dd>
+        @if (Model.EsAdultos)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Acciones)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Acciones)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Acciones)
+            </dd>
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Acciones)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Actores)

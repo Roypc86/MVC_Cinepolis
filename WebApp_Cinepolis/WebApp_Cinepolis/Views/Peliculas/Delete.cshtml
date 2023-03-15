@@ -6,7 +6,6 @@
 
 <h3>¿Está seguro de que desea borrar la siguiente película?</h3>
 <div>
-    <h4>Detalles</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -41,13 +40,16 @@
             @Html.DisplayFor(model => model.EsAdultos)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Acciones)
-        </dt>
+        @if (Model.EsAdultos)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Acciones)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Acciones)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Acciones)
+            </dd>
+        }
 
         <dt>
             @Html.DisplayNameFor(model => model.Actores)
