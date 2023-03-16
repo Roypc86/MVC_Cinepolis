@@ -4,3 +4,7 @@
 
 /Database_Cinepolis/Database_Cinepolis/Database_Cinepolis.dbmdl
 /Database_Cinepolis/Database_Cinepolis/Database_Cinepolis.jfm
+/Database_Cinepolis/Database_Cinepolis/bin/
+/Database_Cinepolis/Database_Cinepolis/obj/
+*.suo
+*.user
