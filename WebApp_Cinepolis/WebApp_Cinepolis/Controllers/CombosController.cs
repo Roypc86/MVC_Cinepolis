@@ -53,11 +53,11 @@ namespace WebApp_Cinepolis.Controllers
         {
             if (!combo.EsAdulto && combo.Juguete == null)
             {
-                ModelState.AddModelError(nameof(combo.Juguete), "Error, este campo no puede estar vacío.");
+                ModelState.AddModelError(nameof(combo.Juguete), "Este campo no puede estar vacío.");
             }
             if (combo.Productos == null)
             {
-                ModelState.AddModelError(nameof(combo.Productos), "Error, este campo no puede estar vacío.");
+                ModelState.AddModelError(nameof(combo.Productos), "Este campo no puede estar vacío.");
             }
             if (ModelState.IsValid)
             {
@@ -97,11 +97,11 @@ namespace WebApp_Cinepolis.Controllers
         {
             if (!combo.EsAdulto && combo.Juguete == null)
             {
-                ModelState.AddModelError(nameof(combo.Juguete), "Error, este campo no puede estar vacío.");
+                ModelState.AddModelError(nameof(combo.Juguete), "Este campo no puede estar vacío.");
             }
             if (combo.Productos == null)
             {
-                ModelState.AddModelError(nameof(combo.Productos), "Error, este campo no puede estar vacío.");
+                ModelState.AddModelError(nameof(combo.Productos), "Este campo no puede estar vacío.");
             }
 
             if (ModelState.IsValid)

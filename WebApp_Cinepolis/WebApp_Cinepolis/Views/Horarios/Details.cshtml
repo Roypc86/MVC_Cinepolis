@@ -1,0 +1,58 @@
+﻿@model WebApp_Cinepolis.Models.Horario
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles del horario</h2>
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hora_inicial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hora_inicial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hora_final)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hora_final)
+        </dd>
+
+        <dt>
+            Sala
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sala.Id)
+        </dd>
+
+        <dt>
+            Película
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pelicula.Nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Atrás", "Index")
+</p>

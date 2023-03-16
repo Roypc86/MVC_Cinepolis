@@ -11,14 +11,23 @@ namespace WebApp_Cinepolis.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Horario
     {
         public int Id { get; set; }
-        public Nullable<System.DateTime> Fecha { get; set; }
-        public Nullable<System.TimeSpan> Hora_inicial { get; set; }
-        public Nullable<System.TimeSpan> Hora_final { get; set; }
-        public Nullable<int> SalaId { get; set; }
+
+        [ DataType(DataType.Date)]
+        public System.DateTime Fecha { get; set; }
+        [DataType(DataType.Time)]
+        [Display(Name = "Hora de inicio")]
+        public System.TimeSpan Hora_inicial { get; set; }
+        [DataType(DataType.Time)]
+        [Display(Name = "Hora de finalización")]
+        public System.TimeSpan Hora_final { get; set; }
+        
+        public int SalaId { get; set; }
+        
         public Nullable<int> PeliculaId { get; set; }
     
         public virtual Pelicula Pelicula { get; set; }

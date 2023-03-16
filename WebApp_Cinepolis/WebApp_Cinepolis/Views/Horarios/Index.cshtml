@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WebApp_Cinepolis.Models.Horario>
+
+@{
+    ViewBag.Title = "Administración";
+}
+
+<h2>Administración de horarios</h2>
+
+<p>
+    @Html.ActionLink("Agregar un nuevo horario", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hora_inicial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hora_final)
+        </th>
+        <th>
+            Película
+        </th>
+        <th>
+            Sala
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hora_inicial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hora_final)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pelicula.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sala.Id)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Borrar", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
