@@ -1,7 +1,8 @@
 ﻿CREATE TABLE [dbo].[Sala]
 (
-	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL, 
     [Capacidad] INT NULL, 
-    [CineId] INT NULL, 
-    CONSTRAINT [FK_Sala_To_Cine] FOREIGN KEY ([CineId]) REFERENCES [dbo].[Cine]([Id])
+    [CineId] INT NOT NULL, 
+    CONSTRAINT Sala_key PRIMARY KEY (Id, CineId),
+    CONSTRAINT [FK_Sala_To_Cine] FOREIGN KEY ([CineId]) REFERENCES [dbo].[Cine]([Id]) ON DELETE CASCADE
 )

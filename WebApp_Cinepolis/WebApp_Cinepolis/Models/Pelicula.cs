@@ -19,7 +19,7 @@ namespace WebApp_Cinepolis.Models
         {
             this.Horario = new HashSet<Horario>();
         }
-    
+
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Genero { get; set; }
@@ -28,7 +28,7 @@ namespace WebApp_Cinepolis.Models
         public string Acciones { get; set; }
         public string Actores { get; set; }
         public string Resumen { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Horario> Horario { get; set; }
     }

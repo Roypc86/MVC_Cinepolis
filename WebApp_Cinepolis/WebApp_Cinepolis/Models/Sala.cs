@@ -22,7 +22,7 @@ namespace WebApp_Cinepolis.Models
     
         public int Id { get; set; }
         public Nullable<int> Capacidad { get; set; }
-        public Nullable<int> CineId { get; set; }
+        public int CineId { get; set; }
     
         public virtual Cine Cine { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

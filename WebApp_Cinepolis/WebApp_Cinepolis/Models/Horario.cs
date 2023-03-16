@@ -16,8 +16,7 @@ namespace WebApp_Cinepolis.Models
     public partial class Horario
     {
         public int Id { get; set; }
-
-        [ DataType(DataType.Date)]
+        [DataType(DataType.Date)]
         public System.DateTime Fecha { get; set; }
         [DataType(DataType.Time)]
         [Display(Name = "Hora de inicio")]
@@ -25,9 +24,8 @@ namespace WebApp_Cinepolis.Models
         [DataType(DataType.Time)]
         [Display(Name = "Hora de finalización")]
         public System.TimeSpan Hora_final { get; set; }
-        
-        public int SalaId { get; set; }
-        
+        public Nullable<int> SalaId { get; set; }
+        public Nullable<int> CineId { get; set; }
         public Nullable<int> PeliculaId { get; set; }
     
         public virtual Pelicula Pelicula { get; set; }

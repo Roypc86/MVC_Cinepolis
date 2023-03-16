@@ -51,28 +51,28 @@ MERGE INTO Sala AS Target
 USING (VALUES
  (1, 21, 1),
  (2, 23, 1),
- (3, 21, 2),
- (4, 32, 2)
+ (1, 21, 2),
+ (2, 32, 2)
 )
 AS Source ([Id], Capacidad, CineId)
 ON Target.Id = Source.Id
 WHEN NOT MATCHED BY TARGET THEN
-INSERT (Capacidad, CineId)
-VALUES (Capacidad, CineId);
+INSERT ([Id],Capacidad, CineId)
+VALUES ([Id],Capacidad, CineId);
 
 --Datos Horario
 MERGE INTO Horario AS Target
 USING (VALUES
- (1, '2023-03-13', '17:30', '20:00', 1, 1),
- (2, '2023-03-13', '20:30', '23:00', 1, 1),
- (3, '2023-03-14', '17:30', '20:00', 2, 2),
- (4, '2023-03-14', '17:30', '20:00', 1, 3)
+ (1, '2023-03-13', '17:30', '20:00', 1, 1, 1),
+ (2, '2023-03-13', '20:30', '23:00', 1, 1, 1),
+ (3, '2023-03-14', '17:30', '20:00', 2, 2, 2),
+ (3, '2023-03-14', '12:30', '20:00', 2, 2, 3)
 )
-AS Source ([Id], Fecha, Hora_inicial, Hora_final, SalaId, PeliculaId)
+AS Source ([Id], Fecha, Hora_inicial, Hora_final, SalaId, CineId, PeliculaId )
 ON Target.Id = Source.Id
 WHEN NOT MATCHED BY TARGET THEN
-INSERT (Fecha, Hora_inicial, Hora_final, SalaId, PeliculaId)
-VALUES (Fecha, Hora_inicial, Hora_final, SalaId, PeliculaId);
+INSERT (Fecha, Hora_inicial, Hora_final, SalaId, CineId, PeliculaId)
+VALUES (Fecha, Hora_inicial, Hora_final, SalaId, CineId, PeliculaId);
 
 --Datos Tiquete
 MERGE INTO Tiquete AS Target
