@@ -1,7 +1,7 @@
 ﻿@model WebApp_Cinepolis.Models.Combo
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar";
 }
 
 <h2>Edición de combo</h2>
@@ -26,11 +26,18 @@
 
         <div class="form-group">
             <span class="control-label col-md-2"><strong>Para adultos</strong></span>
-            <div class="col-md-10">
-                <div class="checkbox" id = "adultosCheckBox" onchange="clickCheckboxAdultos()">
-                    @Html.CheckBoxFor(model => model.EsAdulto, new {})
-                    @Html.ValidationMessageFor(model => model.EsAdulto, "", new { @class = "text-danger" })
-                </div>
+            <div class="col-md-3" style="margin-top: 5px">
+                
+                    <table>
+                        <tr>
+                            <td style="padding-right:10px">Adultos</td>
+                            <td style="padding-right:20px">@Html.RadioButtonFor(model => model.EsAdulto, true, new { @id = "AdultosRadio", @onchange = "clickRadioButtonTipo();" }) </td>
+                            <td style="padding-right:10px">Niños</td>
+                            <td> @Html.RadioButtonFor(model => model.EsAdulto, false, new { @id = "NinosRadio", @onchange = "clickRadioButtonTipo();" }) </td>
+                        </tr>
+                    </table>
+                
+                @Html.ValidationMessageFor(model => model.EsAdulto, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -60,14 +67,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Guardar" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Atrás", "Index")
 </div>
 
 @section Scripts {

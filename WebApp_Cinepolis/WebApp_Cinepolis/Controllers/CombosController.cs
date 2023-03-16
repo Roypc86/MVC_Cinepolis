@@ -51,6 +51,14 @@ namespace WebApp_Cinepolis.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,CineId,EsAdulto,Juguete,TiqueteId,Productos")] Combo combo)
         {
+            if (!combo.EsAdulto && combo.Juguete == null)
+            {
+                ModelState.AddModelError(nameof(combo.Juguete), "Error, este campo no puede estar vacío.");
+            }
+            if (combo.Productos == null)
+            {
+                ModelState.AddModelError(nameof(combo.Productos), "Error, este campo no puede estar vacío.");
+            }
             if (ModelState.IsValid)
             {
                 db.Combo.Add(combo);
@@ -87,6 +95,15 @@ namespace WebApp_Cinepolis.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,CineId,EsAdulto,Juguete,TiqueteId,Productos")] Combo combo)
         {
+            if (!combo.EsAdulto && combo.Juguete == null)
+            {
+                ModelState.AddModelError(nameof(combo.Juguete), "Error, este campo no puede estar vacío.");
+            }
+            if (combo.Productos == null)
+            {
+                ModelState.AddModelError(nameof(combo.Productos), "Error, este campo no puede estar vacío.");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(combo).State = EntityState.Modified;

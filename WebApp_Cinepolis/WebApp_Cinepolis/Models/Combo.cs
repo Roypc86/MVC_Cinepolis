@@ -10,7 +10,6 @@
 namespace WebApp_Cinepolis.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Combo
@@ -20,12 +19,9 @@ namespace WebApp_Cinepolis.Models
         [Display(Name ="tipo")]
         public bool EsAdulto { get; set; }
 
-        
         public string Juguete { get; set; }
         public Nullable<int> TiqueteId { get; set; }
 
-        [Required]
-        [StringLength(200, MinimumLength = 5)]
         public string Productos { get; set; }
     
         public virtual Cine Cine { get; set; }
