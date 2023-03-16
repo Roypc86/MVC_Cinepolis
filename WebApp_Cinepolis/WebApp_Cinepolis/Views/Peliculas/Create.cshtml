@@ -47,7 +47,7 @@
                             <td style="padding-right:10px">Adultos</td>
                             <td style="padding-right:20px">@Html.RadioButtonFor(model => model.EsAdultos, true, new { @id = "AdultosRadio", @onchange = "clickRadioButtonAdultos();" }) </td>
                             <td style="padding-right:10px">Niños</td>
-                            <td> @Html.RadioButtonFor(model => model.EsAdultos, true, new { @id = "NinosRadio", @onchange = "clickRadioButtonAdultos();" }) </td>
+                            <td> @Html.RadioButtonFor(model => model.EsAdultos, false, new { @id = "NinosRadio", @onchange = "clickRadioButtonAdultos();" }) </td>
                         </tr>
                     </table>
                 </center>

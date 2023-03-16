@@ -1,7 +1,7 @@
 ﻿@model WebApp_Cinepolis.Models.Pelicula
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Borrar";
 }
 
 <h3>¿Está seguro de que desea borrar la siguiente película?</h3>
@@ -37,7 +37,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EsAdultos)
+            <table>
+                <tr>
+                    <td style="padding-right:10px">Adultos</td>
+                    <td style="padding-right:20px">@Html.RadioButtonFor(model => model.EsAdultos, true, new { @disabled = "disabled" }) </td>
+                    <td style="padding-right:10px">Niños</td>
+                    <td> @Html.RadioButtonFor(model => model.EsAdultos, false, new { @disabled = "disabled" }) </td>
+                </tr>
+            </table>
         </dd>
 
         @if (Model.EsAdultos)

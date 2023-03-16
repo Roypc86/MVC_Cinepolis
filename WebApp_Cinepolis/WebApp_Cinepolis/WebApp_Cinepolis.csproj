@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -120,9 +128,48 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CinesController.cs" />
+    <Compile Include="Controllers\CombosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PeliculasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cine.cs">
+      <DependentUpon>CinepolisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CinepolisModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CinepolisModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CinepolisModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CinepolisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CinepolisModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CinepolisModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Combo.cs">
+      <DependentUpon>CinepolisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__RefactorLog.cs">
+      <DependentUpon>CinepolisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Horario.cs">
+      <DependentUpon>CinepolisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pelicula.cs">
+      <DependentUpon>CinepolisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sala.cs">
+      <DependentUpon>CinepolisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tiquete.cs">
+      <DependentUpon>CinepolisModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -135,9 +182,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\CinepolisModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CinepolisModel.Context.cs</LastGenOutput>
+      <DependentUpon>CinepolisModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\CinepolisModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CinepolisModel.edmx</DependentUpon>
+      <LastGenOutput>CinepolisModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\CinepolisModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CinepolisModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\CinepolisModel.edmx.diagram">
+      <DependentUpon>CinepolisModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\CombosScript.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -148,6 +213,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\PeliculasScript.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -162,10 +228,24 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Peliculas\Create.cshtml" />
+    <Content Include="Views\Peliculas\Delete.cshtml" />
+    <Content Include="Views\Peliculas\Details.cshtml" />
+    <Content Include="Views\Peliculas\Edit.cshtml" />
+    <Content Include="Views\Peliculas\Index.cshtml" />
+    <Content Include="Views\Cines\Create.cshtml" />
+    <Content Include="Views\Cines\Delete.cshtml" />
+    <Content Include="Views\Cines\Details.cshtml" />
+    <Content Include="Views\Cines\Edit.cshtml" />
+    <Content Include="Views\Cines\Index.cshtml" />
+    <Content Include="Views\Combos\Create.cshtml" />
+    <Content Include="Views\Combos\Delete.cshtml" />
+    <Content Include="Views\Combos\Details.cshtml" />
+    <Content Include="Views\Combos\Edit.cshtml" />
+    <Content Include="Views\Combos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -179,6 +259,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

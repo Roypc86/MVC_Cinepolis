@@ -44,15 +44,22 @@
 
         <div class="form-group">
             <span class="control-label col-md-2"><strong>Restricción de edad</strong></span>
-            <div class="col-md-1">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.EsAdultos)
-                    @Html.ValidationMessageFor(model => model.EsAdultos, "", new { @class = "text-danger" })
-                </div>
+            <div class="col-md-3" style="margin-top: 5px">
+                <center>
+                    <table>
+                        <tr>
+                            <td style="padding-right:10px">Adultos</td>
+                            <td style="padding-right:20px">@Html.RadioButtonFor(model => model.EsAdultos, true, new { @id = "AdultosRadio", @onchange = "clickRadioButtonAdultos();" }) </td>
+                            <td style="padding-right:10px">Niños</td>
+                            <td> @Html.RadioButtonFor(model => model.EsAdultos, false, new { @id = "NinosRadio", @onchange = "clickRadioButtonAdultos();" }) </td>
+                        </tr>
+                    </table>
+                </center>
+                @Html.ValidationMessageFor(model => model.EsAdultos, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="form_acciones">
             @Html.LabelFor(model => model.Acciones, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Acciones, new { htmlAttributes = new { @class = "form-control" } })
