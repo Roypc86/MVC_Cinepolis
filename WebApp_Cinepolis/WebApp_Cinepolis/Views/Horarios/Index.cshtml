@@ -28,7 +28,7 @@
         </th>
 
         <th>
-            Cine
+            Cine asociado
         </th>
         <th></th>
     </tr>
@@ -51,7 +51,7 @@
         @Html.DisplayFor(modelItem => item.Sala.Id)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Sala.Id)
+        @Html.DisplayFor(modelItem => item.Sala.Cine.Nombre)
     </td>
     <td>
         @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |

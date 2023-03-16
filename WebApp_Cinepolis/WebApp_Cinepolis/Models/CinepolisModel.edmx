@@ -39,6 +39,7 @@
           <Property Name="Hora_inicial" Type="time" Precision="7" />
           <Property Name="Hora_final" Type="time" Precision="7" />
           <Property Name="SalaId" Type="int" />
+          <Property Name="CineId" Type="int" />
           <Property Name="PeliculaId" Type="int" />
         </EntityType>
         <EntityType Name="Pelicula">
@@ -57,10 +58,11 @@
         <EntityType Name="Sala">
           <Key>
             <PropertyRef Name="Id" />
+            <PropertyRef Name="CineId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Capacidad" Type="int" />
-          <Property Name="CineId" Type="int" />
+          <Property Name="CineId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Tiquete">
           <Key>
@@ -113,14 +115,18 @@
           <ReferentialConstraint>
             <Principal Role="Sala">
               <PropertyRef Name="Id" />
+              <PropertyRef Name="CineId" />
             </Principal>
             <Dependent Role="Horario">
               <PropertyRef Name="SalaId" />
+              <PropertyRef Name="CineId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Sala_To_Cine">
-          <End Role="Cine" Type="Self.Cine" Multiplicity="0..1" />
+          <End Role="Cine" Type="Self.Cine" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Sala" Type="Self.Sala" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cine">
@@ -164,6 +170,35 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Database_CinepolisModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Database_CinepolisEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__RefactorLog" EntityType="Database_CinepolisModel.C__RefactorLog" />
+          <EntitySet Name="Cine" EntityType="Database_CinepolisModel.Cine" />
+          <EntitySet Name="Combo" EntityType="Database_CinepolisModel.Combo" />
+          <EntitySet Name="Horario" EntityType="Database_CinepolisModel.Horario" />
+          <EntitySet Name="Pelicula" EntityType="Database_CinepolisModel.Pelicula" />
+          <EntitySet Name="Sala" EntityType="Database_CinepolisModel.Sala" />
+          <EntitySet Name="Tiquete" EntityType="Database_CinepolisModel.Tiquete" />
+          <AssociationSet Name="FK_Combo_To_Cine" Association="Database_CinepolisModel.FK_Combo_To_Cine">
+            <End Role="Cine" EntitySet="Cine" />
+            <End Role="Combo" EntitySet="Combo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sala_To_Cine" Association="Database_CinepolisModel.FK_Sala_To_Cine">
+            <End Role="Cine" EntitySet="Cine" />
+            <End Role="Sala" EntitySet="Sala" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Combo_To_Tiquete" Association="Database_CinepolisModel.FK_Combo_To_Tiquete">
+            <End Role="Tiquete" EntitySet="Tiquete" />
+            <End Role="Combo" EntitySet="Combo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Horario_To_Pelicula" Association="Database_CinepolisModel.FK_Horario_To_Pelicula">
+            <End Role="Pelicula" EntitySet="Pelicula" />
+            <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Horario_To_Sala" Association="Database_CinepolisModel.FK_Horario_To_Sala">
+            <End Role="Sala" EntitySet="Sala" />
+            <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="C__RefactorLog">
           <Key>
             <PropertyRef Name="OperationKey" />
@@ -177,21 +212,21 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="Ubicacion" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Combo" Relationship="Self.FK_Combo_To_Cine" FromRole="Cine" ToRole="Combo" />
-          <NavigationProperty Name="Sala" Relationship="Self.FK_Sala_To_Cine" FromRole="Cine" ToRole="Sala" />
+          <NavigationProperty Name="Combo" Relationship="Database_CinepolisModel.FK_Combo_To_Cine" FromRole="Cine" ToRole="Combo" />
+          <NavigationProperty Name="Sala" Relationship="Database_CinepolisModel.FK_Sala_To_Cine" FromRole="Cine" ToRole="Sala" />
         </EntityType>
         <EntityType Name="Combo">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CineId" Type="Int32" />
           <Property Name="EsAdulto" Type="Boolean" />
           <Property Name="Juguete" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="TiqueteId" Type="Int32" />
           <Property Name="Productos" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Cine" Relationship="Self.FK_Combo_To_Cine" FromRole="Combo" ToRole="Cine" />
-          <NavigationProperty Name="Tiquete" Relationship="Self.FK_Combo_To_Tiquete" FromRole="Combo" ToRole="Tiquete" />
+          <NavigationProperty Name="Cine" Relationship="Database_CinepolisModel.FK_Combo_To_Cine" FromRole="Combo" ToRole="Cine" />
+          <NavigationProperty Name="Tiquete" Relationship="Database_CinepolisModel.FK_Combo_To_Tiquete" FromRole="Combo" ToRole="Tiquete" />
         </EntityType>
         <EntityType Name="Horario">
           <Key>
@@ -202,15 +237,16 @@
           <Property Name="Hora_inicial" Type="Time" Precision="7" />
           <Property Name="Hora_final" Type="Time" Precision="7" />
           <Property Name="SalaId" Type="Int32" />
+          <Property Name="CineId" Type="Int32" />
           <Property Name="PeliculaId" Type="Int32" />
-          <NavigationProperty Name="Pelicula" Relationship="Self.FK_Horario_To_Pelicula" FromRole="Horario" ToRole="Pelicula" />
-          <NavigationProperty Name="Sala" Relationship="Self.FK_Horario_To_Sala" FromRole="Horario" ToRole="Sala" />
+          <NavigationProperty Name="Pelicula" Relationship="Database_CinepolisModel.FK_Horario_To_Pelicula" FromRole="Horario" ToRole="Pelicula" />
+          <NavigationProperty Name="Sala" Relationship="Database_CinepolisModel.FK_Horario_To_Sala" FromRole="Horario" ToRole="Sala" />
         </EntityType>
         <EntityType Name="Pelicula">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Genero" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Director" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
@@ -218,17 +254,18 @@
           <Property Name="Acciones" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Actores" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Resumen" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Horario" Relationship="Self.FK_Horario_To_Pelicula" FromRole="Pelicula" ToRole="Horario" />
+          <NavigationProperty Name="Horario" Relationship="Database_CinepolisModel.FK_Horario_To_Pelicula" FromRole="Pelicula" ToRole="Horario" />
         </EntityType>
         <EntityType Name="Sala">
           <Key>
             <PropertyRef Name="Id" />
+            <PropertyRef Name="CineId" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Capacidad" Type="Int32" />
-          <Property Name="CineId" Type="Int32" />
-          <NavigationProperty Name="Cine" Relationship="Self.FK_Sala_To_Cine" FromRole="Sala" ToRole="Cine" />
-          <NavigationProperty Name="Horario" Relationship="Self.FK_Horario_To_Sala" FromRole="Sala" ToRole="Horario" />
+          <Property Name="CineId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cine" Relationship="Database_CinepolisModel.FK_Sala_To_Cine" FromRole="Sala" ToRole="Cine" />
+          <NavigationProperty Name="Horario" Relationship="Database_CinepolisModel.FK_Horario_To_Sala" FromRole="Sala" ToRole="Horario" />
         </EntityType>
         <EntityType Name="Tiquete">
           <Key>
@@ -236,11 +273,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Combo" Relationship="Self.FK_Combo_To_Tiquete" FromRole="Tiquete" ToRole="Combo" />
+          <NavigationProperty Name="Combo" Relationship="Database_CinepolisModel.FK_Combo_To_Tiquete" FromRole="Tiquete" ToRole="Combo" />
         </EntityType>
         <Association Name="FK_Combo_To_Cine">
-          <End Role="Cine" Type="Self.Cine" Multiplicity="0..1" />
-          <End Role="Combo" Type="Self.Combo" Multiplicity="*" />
+          <End Type="Database_CinepolisModel.Cine" Role="Cine" Multiplicity="0..1" />
+          <End Type="Database_CinepolisModel.Combo" Role="Combo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cine">
               <PropertyRef Name="Id" />
@@ -251,8 +288,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Sala_To_Cine">
-          <End Role="Cine" Type="Self.Cine" Multiplicity="0..1" />
-          <End Role="Sala" Type="Self.Sala" Multiplicity="*" />
+          <End Type="Database_CinepolisModel.Cine" Role="Cine" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Database_CinepolisModel.Sala" Role="Sala" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cine">
               <PropertyRef Name="Id" />
@@ -263,8 +302,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Combo_To_Tiquete">
-          <End Role="Tiquete" Type="Self.Tiquete" Multiplicity="0..1" />
-          <End Role="Combo" Type="Self.Combo" Multiplicity="*" />
+          <End Type="Database_CinepolisModel.Tiquete" Role="Tiquete" Multiplicity="0..1" />
+          <End Type="Database_CinepolisModel.Combo" Role="Combo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tiquete">
               <PropertyRef Name="Id" />
@@ -275,8 +314,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Horario_To_Pelicula">
-          <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="0..1" />
-          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <End Type="Database_CinepolisModel.Pelicula" Role="Pelicula" Multiplicity="0..1" />
+          <End Type="Database_CinepolisModel.Horario" Role="Horario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pelicula">
               <PropertyRef Name="Id" />
@@ -287,49 +326,22 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Horario_To_Sala">
-          <End Role="Sala" Type="Self.Sala" Multiplicity="0..1">
+          <End Type="Database_CinepolisModel.Sala" Role="Sala" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <End Type="Database_CinepolisModel.Horario" Role="Horario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sala">
               <PropertyRef Name="Id" />
+              <PropertyRef Name="CineId" />
             </Principal>
             <Dependent Role="Horario">
               <PropertyRef Name="SalaId" />
+              <PropertyRef Name="CineId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Database_CinepolisEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__RefactorLog" EntityType="Self.C__RefactorLog" />
-          <EntitySet Name="Cine" EntityType="Self.Cine" />
-          <EntitySet Name="Combo" EntityType="Self.Combo" />
-          <EntitySet Name="Horario" EntityType="Self.Horario" />
-          <EntitySet Name="Pelicula" EntityType="Self.Pelicula" />
-          <EntitySet Name="Sala" EntityType="Self.Sala" />
-          <EntitySet Name="Tiquete" EntityType="Self.Tiquete" />
-          <AssociationSet Name="FK_Combo_To_Cine" Association="Self.FK_Combo_To_Cine">
-            <End Role="Cine" EntitySet="Cine" />
-            <End Role="Combo" EntitySet="Combo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sala_To_Cine" Association="Self.FK_Sala_To_Cine">
-            <End Role="Cine" EntitySet="Cine" />
-            <End Role="Sala" EntitySet="Sala" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Combo_To_Tiquete" Association="Self.FK_Combo_To_Tiquete">
-            <End Role="Tiquete" EntitySet="Tiquete" />
-            <End Role="Combo" EntitySet="Combo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Horario_To_Pelicula" Association="Self.FK_Horario_To_Pelicula">
-            <End Role="Pelicula" EntitySet="Pelicula" />
-            <End Role="Horario" EntitySet="Horario" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Horario_To_Sala" Association="Self.FK_Horario_To_Sala">
-            <End Role="Sala" EntitySet="Sala" />
-            <End Role="Horario" EntitySet="Horario" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -345,64 +357,65 @@
           <EntitySetMapping Name="Cine">
             <EntityTypeMapping TypeName="Database_CinepolisModel.Cine">
               <MappingFragment StoreEntitySet="Cine">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Combo">
             <EntityTypeMapping TypeName="Database_CinepolisModel.Combo">
               <MappingFragment StoreEntitySet="Combo">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CineId" ColumnName="CineId" />
-                <ScalarProperty Name="EsAdulto" ColumnName="EsAdulto" />
-                <ScalarProperty Name="Juguete" ColumnName="Juguete" />
-                <ScalarProperty Name="TiqueteId" ColumnName="TiqueteId" />
                 <ScalarProperty Name="Productos" ColumnName="Productos" />
+                <ScalarProperty Name="TiqueteId" ColumnName="TiqueteId" />
+                <ScalarProperty Name="Juguete" ColumnName="Juguete" />
+                <ScalarProperty Name="EsAdulto" ColumnName="EsAdulto" />
+                <ScalarProperty Name="CineId" ColumnName="CineId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Horario">
             <EntityTypeMapping TypeName="Database_CinepolisModel.Horario">
               <MappingFragment StoreEntitySet="Horario">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Hora_inicial" ColumnName="Hora_inicial" />
-                <ScalarProperty Name="Hora_final" ColumnName="Hora_final" />
-                <ScalarProperty Name="SalaId" ColumnName="SalaId" />
                 <ScalarProperty Name="PeliculaId" ColumnName="PeliculaId" />
+                <ScalarProperty Name="CineId" ColumnName="CineId" />
+                <ScalarProperty Name="SalaId" ColumnName="SalaId" />
+                <ScalarProperty Name="Hora_final" ColumnName="Hora_final" />
+                <ScalarProperty Name="Hora_inicial" ColumnName="Hora_inicial" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pelicula">
             <EntityTypeMapping TypeName="Database_CinepolisModel.Pelicula">
               <MappingFragment StoreEntitySet="Pelicula">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Genero" ColumnName="Genero" />
-                <ScalarProperty Name="Director" ColumnName="Director" />
-                <ScalarProperty Name="EsAdultos" ColumnName="EsAdultos" />
-                <ScalarProperty Name="Acciones" ColumnName="Acciones" />
-                <ScalarProperty Name="Actores" ColumnName="Actores" />
                 <ScalarProperty Name="Resumen" ColumnName="Resumen" />
+                <ScalarProperty Name="Actores" ColumnName="Actores" />
+                <ScalarProperty Name="Acciones" ColumnName="Acciones" />
+                <ScalarProperty Name="EsAdultos" ColumnName="EsAdultos" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sala">
             <EntityTypeMapping TypeName="Database_CinepolisModel.Sala">
               <MappingFragment StoreEntitySet="Sala">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
                 <ScalarProperty Name="CineId" ColumnName="CineId" />
+                <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tiquete">
             <EntityTypeMapping TypeName="Database_CinepolisModel.Tiquete">
               <MappingFragment StoreEntitySet="Tiquete">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

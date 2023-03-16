@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WebApp_Cinepolis.Models;
 
 namespace WebApp_Cinepolis.Controllers
 {
     public class HomeController : Controller
     {
+        private Database_CinepolisEntities db = new Database_CinepolisEntities();
         public ActionResult Index()
         {
-            return View();
+            return View(db.Cine.ToList());
         }
 
         public ActionResult About()

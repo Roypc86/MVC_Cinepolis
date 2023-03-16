@@ -131,7 +131,9 @@
     <Compile Include="Controllers\CinesController.cs" />
     <Compile Include="Controllers\CombosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HorariosController.cs" />
     <Compile Include="Controllers\PeliculasController.cs" />
+    <Compile Include="Controllers\SalasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -152,6 +154,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CinepolisModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CinepolisModel1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CinepolisModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Combo.cs">
       <DependentUpon>CinepolisModel.tt</DependentUpon>
@@ -190,7 +197,7 @@
     <Content Include="Models\CinepolisModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CinepolisModel.edmx</DependentUpon>
-      <LastGenOutput>CinepolisModel.cs</LastGenOutput>
+      <LastGenOutput>CinepolisModel1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -203,6 +210,7 @@
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CombosScript.js" />
+    <Content Include="Scripts\HomeScript.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -243,6 +251,16 @@
     <Content Include="Views\Combos\Details.cshtml" />
     <Content Include="Views\Combos\Edit.cshtml" />
     <Content Include="Views\Combos\Index.cshtml" />
+    <Content Include="Views\Horarios\Create.cshtml" />
+    <Content Include="Views\Horarios\Delete.cshtml" />
+    <Content Include="Views\Horarios\Details.cshtml" />
+    <Content Include="Views\Horarios\Edit.cshtml" />
+    <Content Include="Views\Horarios\Index.cshtml" />
+    <Content Include="Views\Salas\Create.cshtml" />
+    <Content Include="Views\Salas\Delete.cshtml" />
+    <Content Include="Views\Salas\Details.cshtml" />
+    <Content Include="Views\Salas\Edit.cshtml" />
+    <Content Include="Views\Salas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Database_Cinepolis",
+    "\\WebApp_Cinepolis",
+    "\\WebApp_Cinepolis\\WebApp_Cinepolis",
+    "\\WebApp_Cinepolis\\WebApp_Cinepolis\\Views"
   ],
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }
