@@ -15,10 +15,17 @@ namespace WebApp_Cinepolis.Controllers
         private Database_CinepolisEntities db = new Database_CinepolisEntities();
 
         // GET: Horarios
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             var horario = db.Horario.Include(h => h.Pelicula).Include(h => h.Sala);
-            return View(horario.OrderBy(h => h.SalaId).ToList()) ;
+            ViewBag.VistaGeneral = true;
+
+            if (id != null) {
+                horario = from h in horario where h.CineId == id select h;
+                ViewBag.VistaGeneral = false;
+            }
+
+            return View(horario.OrderBy(h => h.SalaId).ThenBy(h => h.Fecha).ThenBy(h => h.Hora_inicial).ToList()) ;
         }
 
         // GET: Horarios/Details/5

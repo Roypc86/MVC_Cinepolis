@@ -4,11 +4,24 @@
     ViewBag.Title = "Administración";
 }
 
-<h2>Administración de horarios</h2>
+<h2>Lista de horarios</h2>
 
 <p>
     @Html.ActionLink("Agregar un nuevo horario", "Create")
 </p>
+
+@if ((bool)ViewData["VistaGeneral"])
+{
+    <a onclick="history.back()" href="#">Vista anterior</a>
+}
+else
+{
+    <p>
+        <a href="/Horarios/Index">Vista general</a>
+    </p>
+}
+
+
 <table class="table">
     <tr>
         <th>
@@ -33,32 +46,34 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Fecha)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Hora_inicial)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Hora_final)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Pelicula.Nombre)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Sala.Id)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Sala.Cine.Nombre)
-    </td>
-    <td>
-        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
-        @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hora_inicial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hora_final)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pelicula.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sala.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sala.Cine.Nombre)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+@Html.ActionLink("Atrás", "Index", "Home")
