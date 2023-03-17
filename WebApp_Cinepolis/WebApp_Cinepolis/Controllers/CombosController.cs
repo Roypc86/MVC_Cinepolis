@@ -18,9 +18,11 @@ namespace WebApp_Cinepolis.Controllers
         public ActionResult Index(int? id)
         {
             var combo = db.Combo.Include(c => c.Cine).Include(c => c.Tiquete);
+            ViewBag.VistaGeneral = true;
             if (id != null)
             {
                 combo = from c in combo where c.CineId == id select c;
+                ViewBag.VistaGeneral = false;
             }
             
             return View(combo.OrderBy(c =>c.CineId).ToList());

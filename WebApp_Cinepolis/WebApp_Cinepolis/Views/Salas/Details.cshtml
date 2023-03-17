@@ -1,15 +1,23 @@
 ﻿@model WebApp_Cinepolis.Models.Sala
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
-<h2>Details</h2>
+<h2>Detalles de la sala</h2>
 
 <div>
-    <h4>Sala</h4>
+    
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            Id de sala
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Capacidad)
         </dt>
@@ -19,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Cine.Nombre)
+            Cine asociado
         </dt>
 
         <dd>
@@ -29,6 +37,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id, cine_id = Model.CineId }) |
+    <a onclick="history.back()" href="#">Atrás</a>
 </p>

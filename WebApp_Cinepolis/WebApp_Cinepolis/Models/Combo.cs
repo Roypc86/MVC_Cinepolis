@@ -24,7 +24,7 @@ namespace WebApp_Cinepolis.Models
         public Nullable<int> TiqueteId { get; set; }
 
         public string Productos { get; set; }
-
+        public bool VistaGeneral { get; set; }
         public virtual Cine Cine { get; set; }
         public virtual Tiquete Tiquete { get; set; }
     }

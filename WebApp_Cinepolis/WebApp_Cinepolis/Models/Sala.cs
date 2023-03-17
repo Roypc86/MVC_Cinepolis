@@ -26,6 +26,8 @@ namespace WebApp_Cinepolis.Models
     
         public virtual Cine Cine { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        public bool VistaGeneral { get; set; }
         public virtual ICollection<Horario> Horario { get; set; }
     }
 }

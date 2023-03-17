@@ -1,39 +1,68 @@
 ﻿@model IEnumerable<WebApp_Cinepolis.Models.Sala>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Agregar";
 }
 
-<h2>Index</h2>
+<h2>Lista de Salas</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar sala", "Create")
 </p>
+
+@if ((bool)ViewData["VistaGeneral"])
+{
+    <a onclick="history.back()" href="#">Vista anterior</a>
+}
+else
+{
+    <p>
+        <a href="/Salas/Index">Vista general</a>
+    </p>
+}
+
+
+
 <table class="table">
     <tr>
+        <th>
+            Id de Sala
+        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.Capacidad)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cine.Nombre)
+            Cine asociado
         </th>
-        <th></th>
+        <th style="width:250px"></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Capacidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cine.Nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cine.Nombre)
+            </td>
+            <td style="width:250px">
+
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id, cine_id = item.CineId }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id, cine_id = item.CineId }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.Id, cine_id = item.CineId }) |
+                @Html.ActionLink("Horarios", "Delete", new { /* id=item.PrimaryKey */ })
+
+
+            </td>
+        </tr>
+    }
 
 </table>
+
+<br>
+@Html.ActionLink("Atrás", "Index", "Home")

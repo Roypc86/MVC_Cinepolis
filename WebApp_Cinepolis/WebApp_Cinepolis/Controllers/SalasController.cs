@@ -15,20 +15,28 @@ namespace WebApp_Cinepolis.Controllers
         private Database_CinepolisEntities db = new Database_CinepolisEntities();
 
         // GET: Salas
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             var sala = db.Sala.Include(s => s.Cine);
-            return View(sala.ToList());
+            ViewBag.VistaGeneral = true;
+            if (id != null)
+            {
+                sala = from s in sala where s.CineId == id select s;
+                ViewBag.VistaGeneral = false;
+
+            }
+            
+            return View(sala.OrderBy(s => s.CineId).ThenBy(s => s.Id).ToList());
         }
 
         // GET: Salas/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int? cine_id)
         {
-            if (id == null)
+            if (id == null || cine_id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sala sala = db.Sala.Find(id);
+            Sala sala = db.Sala.Find(id, cine_id);
             if (sala == null)
             {
                 return HttpNotFound();
@@ -50,11 +58,12 @@ namespace WebApp_Cinepolis.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Capacidad,CineId")] Sala sala)
         {
+            sala.Id = db.Sala.Max(s => s.Id) + 1;
             if (ModelState.IsValid)
             {
                 db.Sala.Add(sala);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = sala.CineId });
             }
 
             ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre", sala.CineId);
@@ -62,13 +71,13 @@ namespace WebApp_Cinepolis.Controllers
         }
 
         // GET: Salas/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int? cine_id)
         {
-            if (id == null)
+            if (id == null || cine_id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sala sala = db.Sala.Find(id);
+            Sala sala = db.Sala.Find(id, cine_id);
             if (sala == null)
             {
                 return HttpNotFound();
@@ -88,20 +97,20 @@ namespace WebApp_Cinepolis.Controllers
             {
                 db.Entry(sala).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = sala.CineId });
             }
             ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre", sala.CineId);
             return View(sala);
         }
 
         // GET: Salas/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, int? cine_id)
         {
-            if (id == null)
+            if (id == null || cine_id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sala sala = db.Sala.Find(id);
+            Sala sala = db.Sala.Find(id, cine_id);
             if (sala == null)
             {
                 return HttpNotFound();
@@ -112,12 +121,12 @@ namespace WebApp_Cinepolis.Controllers
         // POST: Salas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, int? cine_id)
         {
-            Sala sala = db.Sala.Find(id);
+            Sala sala = db.Sala.Find(id, cine_id);
             db.Sala.Remove(sala);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = cine_id });
         }
 
         protected override void Dispose(bool disposing)

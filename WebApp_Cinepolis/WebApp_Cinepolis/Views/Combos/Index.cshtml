@@ -9,9 +9,17 @@
     @Html.ActionLink("Agregar combo", "Create")
 </p>
 
-<p>
-    <a href="/Combos/Index">Vista general</a>
-</p>
+@if ((bool)ViewData["VistaGeneral"])
+{
+    <a onclick="history.back()" href="#">Vista anterior</a>
+}
+else
+{
+    <p>
+        <a href="/Combos/Index">Vista general</a>
+    </p>
+}
+
 
 <h3>Combos para adulto</h3>
 <table class="table">
@@ -98,4 +106,4 @@
     }
 
 </table>
-<a onclick="history.back()" href="#">Atrás</a>
+@Html.ActionLink("Atrás", "Index", "Home")
