@@ -15,11 +15,15 @@ namespace WebApp_Cinepolis.Controllers
         private Database_CinepolisEntities db = new Database_CinepolisEntities();
 
         // GET: Combos
-        public ActionResult Index(int id)
+        public ActionResult Index(int? id)
         {
             var combo = db.Combo.Include(c => c.Cine).Include(c => c.Tiquete);
-            combo = from c in combo where c.CineId == id select c;
-            return View(combo.ToList());
+            if (id != null)
+            {
+                combo = from c in combo where c.CineId == id select c;
+            }
+            
+            return View(combo.OrderBy(c =>c.CineId).ToList());
         }
 
         // GET: Combos/Details/5
