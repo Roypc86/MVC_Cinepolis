@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33328.57
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "API_Database", "API_Database\API_Database.sqlproj", "{C76B01C4-321B-4F05-A7D3-0CEAB30C5EB1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C76B01C4-321B-4F05-A7D3-0CEAB30C5EB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C76B01C4-321B-4F05-A7D3-0CEAB30C5EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C76B01C4-321B-4F05-A7D3-0CEAB30C5EB1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C76B01C4-321B-4F05-A7D3-0CEAB30C5EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C76B01C4-321B-4F05-A7D3-0CEAB30C5EB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C76B01C4-321B-4F05-A7D3-0CEAB30C5EB1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D9B941F-4795-4324-A06E-075B9C879140}
+	EndGlobalSection
+EndGlobal
