@@ -4,9 +4,12 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+
 using System.Web;
 using System.Web.Mvc;
 using WebApp_Cinepolis.Models;
+
 
 namespace WebApp_Cinepolis.Controllers
 {
@@ -15,6 +18,7 @@ namespace WebApp_Cinepolis.Controllers
         private Database_CinepolisEntities db = new Database_CinepolisEntities();
         public ActionResult Index()
         {
+            
             return View(db.Cine.ToList());
         }
 

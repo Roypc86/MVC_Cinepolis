@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp_Cinepolis", "WebApp_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp_Cinepolis.Tests", "WebApp_Cinepolis.Tests\WebApp_Cinepolis.Tests.csproj", "{DBBC2003-8663-4317-BF37-4698C8425074}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_API", "Web_API\Web_API.csproj", "{C9911BDF-B608-44CB-B0FF-6157CD6B7844}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{2120C422-C59C-4290-9EF0-A2E6EE4C0BC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{DBBC2003-8663-4317-BF37-4698C8425074}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBBC2003-8663-4317-BF37-4698C8425074}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBBC2003-8663-4317-BF37-4698C8425074}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9911BDF-B608-44CB-B0FF-6157CD6B7844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9911BDF-B608-44CB-B0FF-6157CD6B7844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9911BDF-B608-44CB-B0FF-6157CD6B7844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9911BDF-B608-44CB-B0FF-6157CD6B7844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2120C422-C59C-4290-9EF0-A2E6EE4C0BC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2120C422-C59C-4290-9EF0-A2E6EE4C0BC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2120C422-C59C-4290-9EF0-A2E6EE4C0BC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2120C422-C59C-4290-9EF0-A2E6EE4C0BC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,6 +28,7 @@ namespace WebApp_Cinepolis.Models
         public string Acciones { get; set; }
         public string Actores { get; set; }
         public string Resumen { get; set; }
+        public IList<ViewModel.DirectorViewModel> DirectorInfo { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Horario> Horario { get; set; }

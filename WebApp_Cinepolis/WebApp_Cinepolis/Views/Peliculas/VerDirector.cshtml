@@ -1,0 +1,47 @@
+﻿@model WebApp_Cinepolis.Models.Pelicula
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+@{
+    var director = (ViewModel.DirectorViewModel)ViewData["DirectorInfo"];
+}
+
+<h2>Información del director</h2>
+
+@if (director.Nombre == "")
+{
+
+
+    <h3>Error director no encontrado.</h3>
+}
+else
+{
+    <div>
+
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Nombre
+            </dt>
+
+            <dd>
+                @director.Nombre
+            </dd>
+
+            <dt>
+                Biografía
+            </dt>
+
+            <dd>
+                @director.Biografia
+            </dd>
+
+        </dl>
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Atrás", "Index")
+</p>

@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using WebApp_Cinepolis.Models;
@@ -22,6 +23,7 @@ namespace WebApp_Cinepolis.Controllers
             {
                 listaPeliculas.Add(pelicula);
             }
+
             return View(db.Pelicula.ToList());
         }
 
@@ -127,6 +129,48 @@ namespace WebApp_Cinepolis.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // GET: mostrado de vista con la información del director
+        public ActionResult VerDirector(string nombre)
+        {
+            
+            foreach (var director in callAPI())
+            {
+                if (director.Nombre == nombre)
+                {
+                    ViewBag.DirectorInfo = director;
+                    return View();
+                }
+            }
+
+            ViewBag.DirectorInfo = new ViewModel.DirectorViewModel { Id = 0, Nombre = "", Biografia = ""};
+            
+            return View();
+        }
+        private IEnumerable<ViewModel.DirectorViewModel> callAPI()
+        {
+            IEnumerable<ViewModel.DirectorViewModel> directores = null;
+            using (var cliente = new HttpClient())
+            {
+                cliente.BaseAddress = new Uri("https://localhost:44322/api/");
+                //Get
+                var getTarea = cliente.GetAsync("Director");
+                getTarea.Wait();
+
+                var resultado = getTarea.Result;
+                if (resultado.IsSuccessStatusCode)
+                {
+                    var lecturaTarea = resultado.Content.ReadAsAsync<IList<ViewModel.DirectorViewModel>>();
+                    lecturaTarea.Wait();
+                    directores = lecturaTarea.Result;
+                    
+                }
+                
+            }
+            return directores;
+
+            
         }
     }
 }
