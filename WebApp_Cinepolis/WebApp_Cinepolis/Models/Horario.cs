@@ -25,7 +25,7 @@ namespace WebApp_Cinepolis.Models
         [Display(Name = "Hora de finalización")]
         public System.TimeSpan Hora_final { get; set; }
         public Nullable<int> SalaId { get; set; }
-        public Nullable<int> CineId { get; set; }
+        public int CineId { get; set; }
         public Nullable<int> PeliculaId { get; set; }
         public bool VistaGeneral { get; set; }
         public virtual Pelicula Pelicula { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -25,7 +26,7 @@ namespace WebApp_Cinepolis.Controllers
                 ViewBag.VistaGeneral = false;
             }
 
-            return View(horario.OrderBy(h => h.SalaId).ThenBy(h => h.Fecha).ThenBy(h => h.Hora_inicial).ToList()) ;
+            return View(horario.OrderBy(h => h.CineId).ThenBy(h => h.SalaId).ThenBy(h => h.Fecha).ThenBy(h => h.Hora_inicial).ToList()) ;
         }
 
         // GET: Horarios/Details/5
@@ -48,6 +49,7 @@ namespace WebApp_Cinepolis.Controllers
         {
             ViewBag.PeliculaId = new SelectList(db.Pelicula, "Id", "Nombre");
             ViewBag.SalaId = new SelectList(db.Sala, "Id", "Id");
+            ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre");
             return View();
         }
 
@@ -56,7 +58,7 @@ namespace WebApp_Cinepolis.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Fecha,Hora_inicial,Hora_final,SalaId,PeliculaId")] Horario horario)
+        public ActionResult Create([Bind(Include = "Id,Fecha,Hora_inicial,Hora_final,SalaId,CineId,PeliculaId")] Horario horario)
         {
             //Revisión de las horas
             if (checkHoras(horario))
@@ -161,6 +163,21 @@ namespace WebApp_Cinepolis.Controllers
                 return false;
             }
             return true;
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarSalasId(int id)
+        {
+            var sala = db.Sala.Include(s => s.Cine);
+            sala = from s in sala where s.CineId == id select s;
+            var selectListItems = new Dictionary<int, int>();
+
+            foreach (var s in sala)
+            {
+                selectListItems.Add(s.Id, s.Id);
+            }
+            var json = JsonConvert.SerializeObject(selectListItems);
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
     }
 }
