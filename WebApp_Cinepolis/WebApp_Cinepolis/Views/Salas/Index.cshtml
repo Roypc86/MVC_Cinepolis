@@ -55,7 +55,7 @@ else
                 @Html.ActionLink("Editar", "Edit", new { id = item.Id, cine_id = item.CineId }) |
                 @Html.ActionLink("Detalles", "Details", new { id = item.Id, cine_id = item.CineId }) |
                 @Html.ActionLink("Borrar", "Delete", new { id = item.Id, cine_id = item.CineId }) |
-                @Html.ActionLink("Horarios", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Ver horarios", "IndexHorariosSala", "Horarios", new { sala_id = item.Id, cine_id = item.CineId }, null)
 
 
             </td>

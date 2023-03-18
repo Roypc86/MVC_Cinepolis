@@ -1,4 +1,7 @@
-﻿document.addEventListener("DOMContentLoaded", updateDropdownSalas);
+﻿
+if (document.getElementById("edit-page") == null) {
+    document.addEventListener("DOMContentLoaded", updateDropdownSalas);
+}
 
 function updateDropdownSalas() {
     
@@ -29,7 +32,4 @@ function updateDropdownSalas() {
         }
     });
     return false;
-
-
 }
-//url: '@Url.Action("EditFence", "Configuration")',

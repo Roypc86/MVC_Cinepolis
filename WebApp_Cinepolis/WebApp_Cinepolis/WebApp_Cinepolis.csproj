@@ -262,6 +262,7 @@
     <Content Include="Views\Salas\Details.cshtml" />
     <Content Include="Views\Salas\Edit.cshtml" />
     <Content Include="Views\Salas\Index.cshtml" />
+    <Content Include="Views\Horarios\IndexHorariosSala.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

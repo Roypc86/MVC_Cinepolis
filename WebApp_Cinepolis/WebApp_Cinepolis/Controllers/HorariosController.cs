@@ -14,6 +14,7 @@ namespace WebApp_Cinepolis.Controllers
     public class HorariosController : Controller
     {
         private Database_CinepolisEntities db = new Database_CinepolisEntities();
+        
 
         // GET: Horarios
         public ActionResult Index(int? id)
@@ -25,8 +26,21 @@ namespace WebApp_Cinepolis.Controllers
                 horario = from h in horario where h.CineId == id select h;
                 ViewBag.VistaGeneral = false;
             }
-
+            ViewBag.IdCineView = id;
             return View(horario.OrderBy(h => h.CineId).ThenBy(h => h.SalaId).ThenBy(h => h.Fecha).ThenBy(h => h.Hora_inicial).ToList()) ;
+        }
+
+        // GET: Horarios para una sala en específico
+        public ActionResult IndexHorariosSala(int sala_id, int cine_id)
+        {
+            var horario = db.Horario.Include(h => h.Pelicula).Include(h => h.Sala);
+           
+            horario = from h in horario where h.CineId == cine_id && h.SalaId == sala_id select h;
+            
+            ViewBag.IdSalaView = sala_id;
+            ViewBag.IdCineView = cine_id;
+
+            return View(horario.OrderBy(h => h.SalaId).ThenBy(h => h.Fecha).ThenBy(h => h.Hora_inicial).ToList());
         }
 
         // GET: Horarios/Details/5
@@ -45,11 +59,28 @@ namespace WebApp_Cinepolis.Controllers
         }
 
         // GET: Horarios/Create
-        public ActionResult Create()
+        public ActionResult Create(int? sala_id, int? cine_id)
         {
             ViewBag.PeliculaId = new SelectList(db.Pelicula, "Id", "Nombre");
-            ViewBag.SalaId = new SelectList(db.Sala, "Id", "Id");
-            ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre");
+            if (cine_id != null)
+            {
+                ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre", cine_id);
+            }
+            else
+            {
+                ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre");
+            }
+            if (sala_id != null)
+            {
+
+                ViewBag.SalaId = new SelectList(db.Sala, "Id", "Id", sala_id);
+            }
+            else
+            {
+                ViewBag.SalaId = new SelectList(db.Sala, "Id", "Id");
+            }
+            TempData["sala_id"] = sala_id;
+            TempData["cine_id"] = cine_id;
             return View();
         }
 
@@ -67,10 +98,13 @@ namespace WebApp_Cinepolis.Controllers
                 {
                     db.Horario.Add(horario);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    if (TempData["sala_id"] == null)
+                    {
+                        return RedirectToAction("Index", new { id = TempData["cine_id"] });
+                    }
+                    return RedirectToAction("IndexHorariosSala", new { sala_id = TempData["sala_id"] , cine_id = TempData["cine_id"] });
                 }
             }
-
 
             ViewBag.PeliculaId = new SelectList(db.Pelicula, "Id", "Nombre", horario.PeliculaId);
             ViewBag.SalaId = new SelectList(db.Sala, "Id", "Id", horario.SalaId);
@@ -91,7 +125,8 @@ namespace WebApp_Cinepolis.Controllers
                 return HttpNotFound();
             }
             ViewBag.PeliculaId = new SelectList(db.Pelicula, "Id", "Nombre", horario.PeliculaId);
-            ViewBag.SalaId = new SelectList(db.Sala, "Id", "Id", horario.SalaId);
+            ViewBag.SalaId = new SelectList(db.Sala.Where(s => s.CineId == horario.CineId), "Id", "Id", horario.SalaId);
+            ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre", horario.CineId);
             return View(horario);
         }
 
@@ -100,7 +135,7 @@ namespace WebApp_Cinepolis.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Fecha,Hora_inicial,Hora_final,SalaId,PeliculaId")] Horario horario)
+        public ActionResult Edit([Bind(Include = "Id,Fecha,Hora_inicial,Hora_final,SalaId,CineId,PeliculaId")] Horario horario)
         {
             //revisión de las horas
             if (checkHoras(horario))
