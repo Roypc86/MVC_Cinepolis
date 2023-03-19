@@ -72,7 +72,9 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <Association Name="FK_Combo_To_Cine">
-          <End Role="Cine" Type="Self.Cine" Multiplicity="0..1" />
+          <End Role="Cine" Type="Self.Cine" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Combo" Type="Self.Combo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cine">
@@ -84,7 +86,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Combo_To_Tiquete">
-          <End Role="Tiquete" Type="Self.Tiquete" Multiplicity="0..1" />
+          <End Role="Tiquete" Type="Self.Tiquete" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Combo" Type="Self.Combo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tiquete">

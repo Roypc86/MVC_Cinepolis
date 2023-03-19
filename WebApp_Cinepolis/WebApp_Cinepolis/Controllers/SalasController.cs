@@ -18,6 +18,10 @@ namespace WebApp_Cinepolis.Controllers
         // GET: Salas
         public ActionResult Index(bool gen_view, int id)
         {
+            if (id < 1)
+            {
+                return RedirectToAction("DBVacia", "Home");
+            }
             var sala = db.Sala.Include(s => s.Cine);
             ViewBag.VistaGeneral = gen_view;
             ViewBag.IdCine = id;

@@ -281,6 +281,7 @@
     <Content Include="Views\Salas\Index.cshtml" />
     <Content Include="Views\Horarios\IndexHorariosSala.cshtml" />
     <Content Include="Views\Peliculas\VerDirector.cshtml" />
+    <Content Include="Views\Home\DBVacia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

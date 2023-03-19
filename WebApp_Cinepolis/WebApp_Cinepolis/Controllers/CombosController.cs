@@ -17,6 +17,10 @@ namespace WebApp_Cinepolis.Controllers
         // GET: Combos
         public ActionResult Index(bool gen_view, int id)
         {
+            if (id < 1)
+            {
+                return RedirectToAction("DBVacia", "Home");
+            }
             var combo = db.Combo.Include(c => c.Cine).Include(c => c.Tiquete);
             ViewBag.VistaGeneral = gen_view;
             if (!gen_view)

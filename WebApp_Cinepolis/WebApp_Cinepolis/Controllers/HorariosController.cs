@@ -19,6 +19,10 @@ namespace WebApp_Cinepolis.Controllers
         // GET: Horarios
         public ActionResult Index(bool gen_view, int id)
         {
+            if (id < 1)
+            {
+                return RedirectToAction("DBVacia", "Home");
+            }
             var horario = db.Horario.Include(h => h.Pelicula).Include(h => h.Sala);
             ViewBag.VistaGeneral = gen_view;
             ViewBag.IdCine = id;

@@ -40,6 +40,242 @@ USE [$(DatabaseName)];
 
 
 GO
+IF EXISTS (SELECT 1
+           FROM   [master].[dbo].[sysdatabases]
+           WHERE  [name] = N'$(DatabaseName)')
+    BEGIN
+        ALTER DATABASE [$(DatabaseName)]
+            SET ARITHABORT ON,
+                CONCAT_NULL_YIELDS_NULL ON,
+                CURSOR_DEFAULT LOCAL 
+            WITH ROLLBACK IMMEDIATE;
+    END
+
+
+GO
+IF EXISTS (SELECT 1
+           FROM   [master].[dbo].[sysdatabases]
+           WHERE  [name] = N'$(DatabaseName)')
+    BEGIN
+        ALTER DATABASE [$(DatabaseName)]
+            SET PAGE_VERIFY NONE,
+                DISABLE_BROKER 
+            WITH ROLLBACK IMMEDIATE;
+    END
+
+
+GO
+ALTER DATABASE [$(DatabaseName)]
+    SET TARGET_RECOVERY_TIME = 0 SECONDS 
+    WITH ROLLBACK IMMEDIATE;
+
+
+GO
+IF EXISTS (SELECT 1
+           FROM   [master].[dbo].[sysdatabases]
+           WHERE  [name] = N'$(DatabaseName)')
+    BEGIN
+        ALTER DATABASE [$(DatabaseName)]
+            SET QUERY_STORE (CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 367)) 
+            WITH ROLLBACK IMMEDIATE;
+    END
+
+
+GO
+PRINT N'Rename refactoring operation with key a468bd54-69cf-4424-9955-861d3faeb2ef is skipped, element [dbo].[Cine].[Salas] (SqlSimpleColumn) will not be renamed to IdSalas';
+
+
+GO
+PRINT N'Rename refactoring operation with key 1365c260-8c83-409f-8fa4-1219f657dcf3 is skipped, element [dbo].[Relacion_Pelicula_Actor].[Id] (SqlSimpleColumn) will not be renamed to IdPelicula';
+
+
+GO
+PRINT N'Rename refactoring operation with key 8a17bf2c-b3a1-498b-a955-e6abfa3e5f21 is skipped, element [dbo].[Relation_Producto_Combo].[Id] (SqlSimpleColumn) will not be renamed to ComboId';
+
+
+GO
+PRINT N'Rename refactoring operation with key 2d02cbc2-5595-45d3-9f31-1bca0eb4370c is skipped, element [dbo].[ComboNino].[Id] (SqlSimpleColumn) will not be renamed to IdCombo';
+
+
+GO
+PRINT N'Rename refactoring operation with key b21b41bd-2b91-4289-bbc7-2c39a63efdb6 is skipped, element [dbo].[ComboNino].[Juguete] (SqlSimpleColumn) will not be renamed to JugueteId';
+
+
+GO
+PRINT N'Rename refactoring operation with key db074aab-f39d-471a-a3fd-08aeb23f7427 is skipped, element [dbo].[ComboAdulto].[Tiquete] (SqlSimpleColumn) will not be renamed to TiqueteId';
+
+
+GO
+PRINT N'Rename refactoring operation with key cb202f4c-3687-447f-bb0b-b32bcd13dd19 is skipped, element [dbo].[Actor].[Nombre] (SqlSimpleColumn) will not be renamed to Nombre y Apellidos';
+
+
+GO
+PRINT N'Rename refactoring operation with key 01e079db-2275-41cd-b53e-bdc784035af1 is skipped, element [dbo].[Combo].[JugueteId] (SqlSimpleColumn) will not be renamed to Juguete';
+
+
+GO
+PRINT N'Creating Table [dbo].[Cine]...';
+
+
+GO
+CREATE TABLE [dbo].[Cine] (
+    [Id]        INT           IDENTITY (1, 1) NOT NULL,
+    [Nombre]    NVARCHAR (60) NULL,
+    [Ubicacion] NVARCHAR (60) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+PRINT N'Creating Table [dbo].[Combo]...';
+
+
+GO
+CREATE TABLE [dbo].[Combo] (
+    [Id]        INT            IDENTITY (1, 1) NOT NULL,
+    [CineId]    INT            NULL,
+    [EsAdulto]  BIT            NULL,
+    [Juguete]   NVARCHAR (40)  NULL,
+    [TiqueteId] INT            NULL,
+    [Productos] NVARCHAR (200) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+PRINT N'Creating Table [dbo].[Horario]...';
+
+
+GO
+CREATE TABLE [dbo].[Horario] (
+    [Id]           INT      IDENTITY (1, 1) NOT NULL,
+    [Fecha]        DATE     NULL,
+    [Hora_inicial] TIME (7) NULL,
+    [Hora_final]   TIME (7) NULL,
+    [SalaId]       INT      NULL,
+    [CineId]       INT      NULL,
+    [PeliculaId]   INT      NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+PRINT N'Creating Table [dbo].[Pelicula]...';
+
+
+GO
+CREATE TABLE [dbo].[Pelicula] (
+    [Id]        INT             IDENTITY (1, 1) NOT NULL,
+    [Nombre]    NVARCHAR (30)   NULL,
+    [Genero]    NVARCHAR (30)   NULL,
+    [Director]  NVARCHAR (30)   NULL,
+    [EsAdultos] BIT             NULL,
+    [Acciones]  NVARCHAR (300)  NULL,
+    [Actores]   NVARCHAR (300)  NULL,
+    [Resumen]   NVARCHAR (3000) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+PRINT N'Creating Table [dbo].[Sala]...';
+
+
+GO
+CREATE TABLE [dbo].[Sala] (
+    [Id]        INT NOT NULL,
+    [Capacidad] INT NULL,
+    [CineId]    INT NOT NULL,
+    CONSTRAINT [Sala_key] PRIMARY KEY CLUSTERED ([Id] ASC, [CineId] ASC)
+);
+
+
+GO
+PRINT N'Creating Table [dbo].[Tiquete]...';
+
+
+GO
+CREATE TABLE [dbo].[Tiquete] (
+    [Id]     INT           IDENTITY (1, 1) NOT NULL,
+    [Nombre] NVARCHAR (30) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Combo_To_Cine]...';
+
+
+GO
+ALTER TABLE [dbo].[Combo] WITH NOCHECK
+    ADD CONSTRAINT [FK_Combo_To_Cine] FOREIGN KEY ([CineId]) REFERENCES [dbo].[Cine] ([Id]) ON DELETE CASCADE;
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Combo_To_Tiquete]...';
+
+
+GO
+ALTER TABLE [dbo].[Combo] WITH NOCHECK
+    ADD CONSTRAINT [FK_Combo_To_Tiquete] FOREIGN KEY ([TiqueteId]) REFERENCES [dbo].[Tiquete] ([Id]) ON DELETE CASCADE;
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Horario_To_Sala]...';
+
+
+GO
+ALTER TABLE [dbo].[Horario] WITH NOCHECK
+    ADD CONSTRAINT [FK_Horario_To_Sala] FOREIGN KEY ([SalaId], [CineId]) REFERENCES [dbo].[Sala] ([Id], [CineId]) ON DELETE CASCADE;
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Horario_To_Pelicula]...';
+
+
+GO
+ALTER TABLE [dbo].[Horario] WITH NOCHECK
+    ADD CONSTRAINT [FK_Horario_To_Pelicula] FOREIGN KEY ([PeliculaId]) REFERENCES [dbo].[Pelicula] ([Id]) ON DELETE CASCADE;
+
+
+GO
+PRINT N'Creating Foreign Key [dbo].[FK_Sala_To_Cine]...';
+
+
+GO
+ALTER TABLE [dbo].[Sala] WITH NOCHECK
+    ADD CONSTRAINT [FK_Sala_To_Cine] FOREIGN KEY ([CineId]) REFERENCES [dbo].[Cine] ([Id]) ON DELETE CASCADE;
+
+
+GO
+-- Refactoring step to update target server with deployed transaction logs
+
+IF OBJECT_ID(N'dbo.__RefactorLog') IS NULL
+BEGIN
+    CREATE TABLE [dbo].[__RefactorLog] (OperationKey UNIQUEIDENTIFIER NOT NULL PRIMARY KEY)
+    EXEC sp_addextendedproperty N'microsoft_database_tools_support', N'refactoring log', N'schema', N'dbo', N'table', N'__RefactorLog'
+END
+GO
+IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey = 'a468bd54-69cf-4424-9955-861d3faeb2ef')
+INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('a468bd54-69cf-4424-9955-861d3faeb2ef')
+IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey = '1365c260-8c83-409f-8fa4-1219f657dcf3')
+INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('1365c260-8c83-409f-8fa4-1219f657dcf3')
+IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey = '8a17bf2c-b3a1-498b-a955-e6abfa3e5f21')
+INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('8a17bf2c-b3a1-498b-a955-e6abfa3e5f21')
+IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey = '2d02cbc2-5595-45d3-9f31-1bca0eb4370c')
+INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('2d02cbc2-5595-45d3-9f31-1bca0eb4370c')
+IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey = 'b21b41bd-2b91-4289-bbc7-2c39a63efdb6')
+INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('b21b41bd-2b91-4289-bbc7-2c39a63efdb6')
+IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey = 'db074aab-f39d-471a-a3fd-08aeb23f7427')
+INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('db074aab-f39d-471a-a3fd-08aeb23f7427')
+IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey = 'cb202f4c-3687-447f-bb0b-b32bcd13dd19')
+INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('cb202f4c-3687-447f-bb0b-b32bcd13dd19')
+IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey = '01e079db-2275-41cd-b53e-bdc784035af1')
+INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('01e079db-2275-41cd-b53e-bdc784035af1')
+
+GO
+
+GO
 /*
 Post-Deployment Script Template							
 --------------------------------------------------------------------------------------
@@ -145,6 +381,26 @@ WHEN NOT MATCHED BY TARGET THEN
 INSERT (CineId, EsAdulto, Juguete, TiqueteId, Productos)
 VALUES (CineId, EsAdulto, Juguete, TiqueteId, Productos);
 GO
+
+GO
+PRINT N'Checking existing data against newly created constraints';
+
+
+GO
+USE [$(DatabaseName)];
+
+
+GO
+ALTER TABLE [dbo].[Combo] WITH CHECK CHECK CONSTRAINT [FK_Combo_To_Cine];
+
+ALTER TABLE [dbo].[Combo] WITH CHECK CHECK CONSTRAINT [FK_Combo_To_Tiquete];
+
+ALTER TABLE [dbo].[Horario] WITH CHECK CHECK CONSTRAINT [FK_Horario_To_Sala];
+
+ALTER TABLE [dbo].[Horario] WITH CHECK CHECK CONSTRAINT [FK_Horario_To_Pelicula];
+
+ALTER TABLE [dbo].[Sala] WITH CHECK CHECK CONSTRAINT [FK_Sala_To_Cine];
+
 
 GO
 PRINT N'Update complete.';

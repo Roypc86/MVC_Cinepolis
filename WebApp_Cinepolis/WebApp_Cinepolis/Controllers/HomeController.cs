@@ -35,5 +35,10 @@ namespace WebApp_Cinepolis.Controllers
 
             return View();
         }
+
+        public ActionResult DBVacia()
+        {
+            return View();
+        }
     }
 }

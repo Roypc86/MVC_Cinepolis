@@ -76,4 +76,9 @@ else
     }
 
 </table>
+
+@if (Model.Count() == 0)
+{
+    <h4>No se encontraron horarios para este Cine.</h4>
+}
 @Html.ActionLink("Atrás", "Index", "Home")
