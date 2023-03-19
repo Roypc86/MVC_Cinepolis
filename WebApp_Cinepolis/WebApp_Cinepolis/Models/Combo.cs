@@ -22,7 +22,7 @@ namespace WebApp_Cinepolis.Models
 
         public string Juguete { get; set; }
         public Nullable<int> TiqueteId { get; set; }
-
+        public int IdCine { get; set; }
         public string Productos { get; set; }
         public bool VistaGeneral { get; set; }
         public virtual Cine Cine { get; set; }

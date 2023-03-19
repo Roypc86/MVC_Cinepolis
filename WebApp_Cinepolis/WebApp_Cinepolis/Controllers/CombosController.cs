@@ -15,15 +15,15 @@ namespace WebApp_Cinepolis.Controllers
         private Database_CinepolisEntities db = new Database_CinepolisEntities();
 
         // GET: Combos
-        public ActionResult Index(int? id)
+        public ActionResult Index(bool gen_view, int id)
         {
             var combo = db.Combo.Include(c => c.Cine).Include(c => c.Tiquete);
-            ViewBag.VistaGeneral = true;
-            if (id != null)
+            ViewBag.VistaGeneral = gen_view;
+            if (!gen_view)
             {
                 combo = from c in combo where c.CineId == id select c;
-                ViewBag.VistaGeneral = false;
             }
+            ViewBag.IdCine = id;
             
             return View(combo.OrderBy(c =>c.CineId).ToList());
         }
@@ -44,9 +44,9 @@ namespace WebApp_Cinepolis.Controllers
         }
 
         // GET: Combos/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre");
+            ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre", id);
             ViewBag.TiqueteId = new SelectList(db.Tiquete, "Id", "Nombre");
             return View();
         }
@@ -70,7 +70,7 @@ namespace WebApp_Cinepolis.Controllers
             {
                 db.Combo.Add(combo);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { id = combo.CineId });
+                return RedirectToAction("Index", new { gen_view = false, id = combo.CineId });
             }
 
             ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre", combo.CineId);
@@ -115,7 +115,7 @@ namespace WebApp_Cinepolis.Controllers
             {
                 db.Entry(combo).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", new { id = combo.CineId});
+                return RedirectToAction("Index", new { gen_view = false, id = combo.CineId });
             }
             ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre", combo.CineId);
             ViewBag.TiqueteId = new SelectList(db.Tiquete, "Id", "Nombre", combo.TiqueteId);
@@ -146,7 +146,7 @@ namespace WebApp_Cinepolis.Controllers
             int? cine_id = combo.CineId;
             db.Combo.Remove(combo);
             db.SaveChanges();
-            return RedirectToAction("Index", new { id = cine_id });
+            return RedirectToAction("Index", new { gen_view = false, id = cine_id });
         }
 
         protected override void Dispose(bool disposing)

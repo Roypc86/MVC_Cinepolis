@@ -30,7 +30,12 @@ function clickRadioButtonAdultos() {
     if ($("#AdultosRadio").prop('checked')) {//Caso es para adulto
         divAcciones.style = "display: block;";
 
-    } else {//Caso es para niños
+    } else {
         divAcciones.style = "display: none;";
+    }
+    if ($("#NinosRadio").prop('checked')) {//Caso es para niños
+        if (textarea.value.substring(0, 14).indexOf("Hola amiguitos") == -1) {
+            textarea.value = "Hola amiguitos " + textarea.value;
+        }
     }
 }

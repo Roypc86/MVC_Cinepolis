@@ -5,13 +5,13 @@ function onClickPeliculasButton() {
 }
 
 function onClickCombosButton() {  
-    window.location.href = '/Combos/Index/' + selector_cine.value;
+    window.location.href = '/Combos/Index/?gen_view=' + false + '&id=' + selector_cine.value;
 }
 
 function onClickSalasButton() {
-    window.location.href = '/Salas/Index/' + selector_cine.value;
+    window.location.href = '/Salas/Index/?gen_view=' + false + '&id=' + selector_cine.value;
 }
 
 function onClickHorariosButton() {
-    window.location.href = '/Horarios/Index/' + selector_cine.value;
+    window.location.href = '/Horarios/Index/?gen_view=' + false + '&id=' + selector_cine.value;
 }

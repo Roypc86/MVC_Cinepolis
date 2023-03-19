@@ -74,7 +74,9 @@
 }
 
 
-@Html.ActionLink("Atrás", null, null, null, new { href = Request.UrlReferrer })
+<div>
+    <a onclick="history.back()" href="#">Atrás</a>
+</div>
 
 
 @section Scripts {
