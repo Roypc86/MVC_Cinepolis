@@ -23,7 +23,7 @@ function updateDropdownSalas() {
             for (s in salas) {
                 var number = salas[s].split(':')[1];
                 $("#DropdownSalasId").append('<option value="' + number + '">' + number + '</option>');
-                console.log(number)
+                
             }
             
         },

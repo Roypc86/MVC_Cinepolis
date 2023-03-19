@@ -10,15 +10,15 @@
     @Html.ActionLink("Agregar un nuevo horario", "Create", new { cine_id = ViewData["IdCineView"] })
 </p>
 
+
 @if ((bool)ViewData["VistaGeneral"])
 {
-    <a onclick="history.back()" href="#">Vista anterior</a>
+    @Html.ActionLink("Vista anterior", "Index", new { gen_view = false, id = (int)ViewData["IdCine"] })
 }
 else
 {
-    <p>
-        <a href="/Horarios/Index">Vista general</a>
-    </p>
+    @Html.ActionLink("Vista general", "Index", new { gen_view = true, id = (int)ViewData["IdCine"] })
+
 }
 
 

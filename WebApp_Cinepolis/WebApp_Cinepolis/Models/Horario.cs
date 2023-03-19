@@ -27,10 +27,11 @@ namespace WebApp_Cinepolis.Models
         public Nullable<int> SalaId { get; set; }
         public int CineId { get; set; }
         public Nullable<int> PeliculaId { get; set; }
-        public bool VistaGeneral { get; set; }
-        public bool VistaSala { get; set; }
+        public bool VistaGeneral { get; set; } //ViewBag
+        public bool VistaSala { get; set; }//ViewBag
         public int IdSalaView { get; set; }
         public int IdCineView { get; set; }
+        public int IdCine { get; set; } //ViewBag
         public virtual Pelicula Pelicula { get; set; }
         public virtual Sala Sala { get; set; }
     }

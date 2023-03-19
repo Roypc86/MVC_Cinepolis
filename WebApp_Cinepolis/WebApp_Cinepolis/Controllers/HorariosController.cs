@@ -17,16 +17,17 @@ namespace WebApp_Cinepolis.Controllers
         
 
         // GET: Horarios
-        public ActionResult Index(int? id)
+        public ActionResult Index(bool gen_view, int id)
         {
             var horario = db.Horario.Include(h => h.Pelicula).Include(h => h.Sala);
-            ViewBag.VistaGeneral = true;
-
-            if (id != null) {
+            ViewBag.VistaGeneral = gen_view;
+            ViewBag.IdCine = id;
+            if (!gen_view)
+            {
                 horario = from h in horario where h.CineId == id select h;
-                ViewBag.VistaGeneral = false;
+                
             }
-            ViewBag.IdCineView = id;
+           
             return View(horario.OrderBy(h => h.CineId).ThenBy(h => h.SalaId).ThenBy(h => h.Fecha).ThenBy(h => h.Hora_inicial).ToList()) ;
         }
 
@@ -100,7 +101,7 @@ namespace WebApp_Cinepolis.Controllers
                     db.SaveChanges();
                     if (TempData["sala_id"] == null)
                     {
-                        return RedirectToAction("Index", new { id = TempData["cine_id"] });
+                        return RedirectToAction("Index", new { gen_view = false, id = horario.CineId });
                     }
                     return RedirectToAction("IndexHorariosSala", new { sala_id = TempData["sala_id"] , cine_id = TempData["cine_id"] });
                 }
@@ -127,6 +128,7 @@ namespace WebApp_Cinepolis.Controllers
             ViewBag.PeliculaId = new SelectList(db.Pelicula, "Id", "Nombre", horario.PeliculaId);
             ViewBag.SalaId = new SelectList(db.Sala.Where(s => s.CineId == horario.CineId), "Id", "Id", horario.SalaId);
             ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre", horario.CineId);
+            
             return View(horario);
         }
 
@@ -144,12 +146,13 @@ namespace WebApp_Cinepolis.Controllers
                 {
                     db.Entry(horario).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { gen_view = false, id = horario.CineId });
                 }
             }
             
             ViewBag.PeliculaId = new SelectList(db.Pelicula, "Id", "Nombre", horario.PeliculaId);
             ViewBag.SalaId = new SelectList(db.Sala, "Id", "Id", horario.SalaId);
+            ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre", horario.CineId);
             return View(horario);
         }
 
@@ -174,9 +177,10 @@ namespace WebApp_Cinepolis.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Horario horario = db.Horario.Find(id);
+            var cine_id = horario.CineId;
             db.Horario.Remove(horario);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { gen_view = false, id = cine_id });
         }
 
         protected override void Dispose(bool disposing)
