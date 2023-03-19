@@ -11,64 +11,64 @@
 </p>
 
 
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hora_inicial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hora_final)
+        </th>
+        <th>
+            Película
+        </th>
+
+        <th>
+            Cine asociado
+        </th>
+        <th></th>
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hora_inicial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hora_final)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pelicula.Nombre)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Sala.Cine.Nombre)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
 @if (Model.Count() == 0)
 {
-    <h2>No se han encontrado horarios para esta sala.</h2>
-}
-else
-{
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hora_inicial)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hora_final)
-            </th>
-            <th>
-                Película
-            </th>
-
-            <th>
-                Cine asociado
-            </th>
-            <th></th>
-        </tr>
-
-
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fecha)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hora_inicial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hora_final)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Pelicula.Nombre)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sala.Cine.Nombre)
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
-                </td>
-            </tr>
-        }
-
-    </table>
+    <h4>No se han encontrado horarios para esta sala.</h4>
 }
 
 
-@Html.ActionLink("Atrás", "Index", "Salas", new { id = @ViewData["IdCineView"]}, null)
+<div>
+    <a onclick="history.back()" href="#">Atrás</a>
+</div>

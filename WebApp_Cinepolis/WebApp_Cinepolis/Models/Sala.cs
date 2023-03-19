@@ -11,7 +11,8 @@ namespace WebApp_Cinepolis.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Sala
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,13 +22,16 @@ namespace WebApp_Cinepolis.Models
         }
     
         public int Id { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Solo se permiten números enteros positivos")]
         public Nullable<int> Capacidad { get; set; }
         public int CineId { get; set; }
     
         public virtual Cine Cine { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-        public bool VistaGeneral { get; set; }
+        public bool VistaGeneral { get; set; }//ViewBag
+        public int IdCine { get; set; }//ViewBag
+        public int IdSalaPosible { get; set; }//ViewBag
         public virtual ICollection<Horario> Horario { get; set; }
     }
 }

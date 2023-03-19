@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,17 +16,15 @@ namespace WebApp_Cinepolis.Controllers
         private Database_CinepolisEntities db = new Database_CinepolisEntities();
 
         // GET: Salas
-        public ActionResult Index(int? id)
+        public ActionResult Index(bool gen_view, int id)
         {
             var sala = db.Sala.Include(s => s.Cine);
-            ViewBag.VistaGeneral = true;
-            if (id != null)
+            ViewBag.VistaGeneral = gen_view;
+            ViewBag.IdCine = id;
+            if (!gen_view)
             {
                 sala = from s in sala where s.CineId == id select s;
-                ViewBag.VistaGeneral = false;
-
             }
-            
             return View(sala.OrderBy(s => s.CineId).ThenBy(s => s.Id).ToList());
         }
 
@@ -45,9 +44,11 @@ namespace WebApp_Cinepolis.Controllers
         }
 
         // GET: Salas/Create
-        public ActionResult Create()
+        public ActionResult Create(int cine_id)
         {
-            ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre");
+            ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre", cine_id);
+
+            ViewBag.IdSalaPosible = getNuevoIdSala(cine_id);
             return View();
         }
 
@@ -58,12 +59,12 @@ namespace WebApp_Cinepolis.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Capacidad,CineId")] Sala sala)
         {
-            sala.Id = db.Sala.Max(s => s.Id) + 1;
+            sala.Id = getNuevoIdSala(sala.CineId);
             if (ModelState.IsValid)
             {
                 db.Sala.Add(sala);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { id = sala.CineId });
+                return RedirectToAction("Index", new { gen_view = false,id = sala.CineId });
             }
 
             ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre", sala.CineId);
@@ -97,7 +98,7 @@ namespace WebApp_Cinepolis.Controllers
             {
                 db.Entry(sala).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", new { id = sala.CineId });
+                return RedirectToAction("Index", new { gen_view = false, id = sala.CineId });
             }
             ViewBag.CineId = new SelectList(db.Cine, "Id", "Nombre", sala.CineId);
             return View(sala);
@@ -126,7 +127,7 @@ namespace WebApp_Cinepolis.Controllers
             Sala sala = db.Sala.Find(id, cine_id);
             db.Sala.Remove(sala);
             db.SaveChanges();
-            return RedirectToAction("Index", new { id = cine_id });
+            return RedirectToAction("Index", new { gen_view = false, id = cine_id });
         }
 
         protected override void Dispose(bool disposing)
@@ -136,6 +137,27 @@ namespace WebApp_Cinepolis.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        // Método de actualización del id de la sala al crearla respecto al Cine seleccionado
+        public JsonResult ObtenerSalaId(int id_cine)
+        {
+            var json = JsonConvert.SerializeObject(getNuevoIdSala(id_cine));
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        // Método privado de obtención del último id de sala para el cine de entrada
+        private int getNuevoIdSala(int id_cine)
+        {
+            var consulta = db.Sala.Where(s => s.CineId == id_cine);
+            var nuevo_id = 1;
+            if (consulta.Count() != 0)
+            {
+                nuevo_id = consulta.Max(s => s.Id) + 1;
+
+            }
+            return nuevo_id;
         }
     }
 }

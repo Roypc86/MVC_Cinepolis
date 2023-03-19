@@ -7,20 +7,18 @@
 <h2>Lista de Salas</h2>
 
 <p>
-    @Html.ActionLink("Agregar una nueva sala", "Create")
+    @Html.ActionLink("Agregar una nueva sala", "Create", new { cine_id = (int)ViewData["IdCine"] }, null)
 </p>
 
 @if ((bool)ViewData["VistaGeneral"])
 {
-    <a onclick="history.back()" href="#">Vista anterior</a>
+    @Html.ActionLink("Vista anterior", "Index", new { gen_view = false, id = (int)ViewData["IdCine"] })
 }
 else
 {
-    <p>
-        <a href="/Salas/Index">Vista general</a>
-    </p>
-}
+    @Html.ActionLink("Vista general", "Index", new { gen_view = true, id = (int)ViewData["IdCine"] })
 
+}
 
 
 <table class="table">
@@ -64,5 +62,8 @@ else
 
 </table>
 
-<br>
+@if (Model.Count() == 0)
+{
+    <h4>No se encontraron salas para este Cine.</h4>
+}
 @Html.ActionLink("Atrás", "Index", "Home")

@@ -201,6 +201,7 @@ namespace WebApp_Cinepolis.Controllers
         }
 
         [HttpPost]
+        // Método de actualización de las salas correspondientes al id de entrada del Cine
         public JsonResult ActualizarSalasId(int id)
         {
             var sala = db.Sala.Include(s => s.Cine);
